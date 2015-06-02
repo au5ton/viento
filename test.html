@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>TITLE</title>
+
+        <link href="viento.css" rel="stylesheet">
+
+        <style>
+
+            body {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                background-color: darkslategrey;
+            }
+
+            .hidden {
+                opacity: 0;
+            }
+            
+            .element {
+                width: 200px;
+                height: 200px;
+                position: absolute;
+                top: 35%;
+                left: 35%;
+                display: block;
+                vertical-align: middle;
+                background-color: red;
+                animation-duration: 3s;
+                animation-name: v-fadeIn;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <div id="watchme" class="element hidden">
+            Hello, World!
+        </div>
+        
+        <script>
+            var e = document.getElementById("watchme");
+            e.addEventListener("animationend", function(){
+                e.setAttribute("class","element");
+            }, false);
+        </script>
+        
+    </body>
+</html>

@@ -1,4 +1,4 @@
 viento
 ======
 
-A collection of high-performance CSS animations
+Fire and manage custom high-performance CSS animations on-the-fly.

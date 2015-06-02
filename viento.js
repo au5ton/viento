@@ -15,11 +15,11 @@ Viento.prototype.fire = function(t) {
     if(t.animation.resetAfter === undefined) {
         t.animation.resetAfter = true;
     }
-
-    //Add more properties
-
     if(t.callback === undefined) {
         t.callback = function() {};
+    }
+    if(t.withAnimation === undefined){
+        t.withAnimation = function() {};
     }
 
     if(t.animation.type === "entrance") {
@@ -30,6 +30,7 @@ Viento.prototype.fire = function(t) {
 
 
     setTimeout(function(){
+        t.withAnimation();
         t.element.style.animationName = t.animation.name;
         t.element.style.animationDuration = t.animation.duration;
         t.element.style.animationDelay = t.animation.delay;

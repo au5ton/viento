@@ -15,6 +15,9 @@ Viento.prototype.fire = function(t) {
     if(t.animation.resetAfter === undefined) {
         t.animation.resetAfter = true;
     }
+
+    //Add more properties
+
     if(t.callback === undefined) {
         t.callback = function() {};
     }
@@ -27,9 +30,15 @@ Viento.prototype.fire = function(t) {
 
 
     setTimeout(function(){
-
         t.element.style.animationName = t.animation.name;
         t.element.style.animationDuration = t.animation.duration;
+        t.element.style.animationDelay = t.animation.delay;
+        t.element.style.animationDirection = t.animation.direction;
+        t.element.style.animationFillMode = t.animation.fillMode;
+        t.element.style.animationIterationCount = t.animation.iterationCount;
+        t.element.style.animationPlayState = t.animation.playState;
+        t.element.style.animationTimingFunctions = t.animation.timingFunctions;
+        t.element.style.animation = t.animation.animation;
 
         t.element.addEventListener("animationend",function(){
 
@@ -41,8 +50,17 @@ Viento.prototype.fire = function(t) {
                 else if(t.animation.resetAfter === true){
                     t.element.style.animationName = "";
                     t.element.style.animationDuration = "";
-                    $(t.element).removeClass("hidden");
-                    t.element.style.visibility= "";
+                    t.element.style.animationDelay = "";
+                    t.element.style.animationDirection = "";
+                    t.element.style.animationFillMode = "";
+                    t.element.style.animationIterationCount = "";
+                    t.element.style.animationPlayState = "";
+                    t.element.style.animationTimingFunctions = "";
+                    t.element.style.animation = "";
+                    if(t.animation.type === "entrance") {
+                        $(t.element).removeClass("hidden");
+                        t.element.style.visibility= "";
+                    }
                 }
                 t.callback();
 

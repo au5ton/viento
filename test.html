@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>TITLE</title>
 
+        <script src="viento.js"></script>
         <link href="viento.css" rel="stylesheet">
 
         <style>
@@ -20,37 +21,62 @@
                 margin: 0;
                 background-color: darkslategrey;
             }
-
-            .hidden {
-                opacity: 0;
-            }
             
             .element {
                 width: 200px;
                 height: 200px;
                 position: absolute;
-                top: 35%;
-                left: 35%;
+                top: 100px;
+                left: 100px;
                 display: block;
-                vertical-align: middle;
                 background-color: red;
-                animation-duration: 3s;
-                animation-name: v-fadeIn;
+            }
+            .element2 {
+                width: 200px;
+                height: 200px;
+                position: absolute;
+                top: 300px;
+                left: 300px;
+                display: block;
+                background-color: orangered;
             }
 
         </style>
 
     </head>
     <body>
-        <div id="watchme" class="element hidden">
+        <div id="element" class="element hidden">
+            Hello, World!
+        </div>
+        
+        <div id="element2" class="element2 hidden">
             Hello, World!
         </div>
         
         <script>
-            var e = document.getElementById("watchme");
-            e.addEventListener("animationend", function(){
-                e.setAttribute("class","element");
-            }, false);
+            var v = new Viento();
+            
+            v.fire({
+                element: document.getElementById("element"),
+                animation: {
+                    name: "v-fadeIn",
+                    duration: "3s",
+                    type: "entrance"
+                },
+                callback: function() {
+                    
+                    v.fire({
+                        element: document.getElementById("element2"),
+                        animation: {
+                            name: "v-fadeIn",
+                            duration: "3s",
+                            type: "entrance"
+                        }
+                    });
+                    
+                }
+            });
+            
         </script>
         
     </body>

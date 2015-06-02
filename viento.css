@@ -20,9 +20,11 @@
 }
 @keyframes v-spinAround {
   from {
+    -webkit-transform: rotateZ(0deg);
     transform: rotateZ(0deg);
   }
   to {
+    -webkit-transform: rotateZ(360deg);
     transform: rotateZ(360deg);
   }
 }
@@ -44,33 +46,11 @@
 }
 @-webkit-keyframes v-spinAround {
   from {
+    -webkit-transform: rotateZ(0deg);
     transform: rotateZ(0deg);
   }
   to {
-    transform: rotateZ(360deg);
-  }
-}
-@-moz-keyframes v-fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@-moz-keyframes v-fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@-moz-keyframes v-spinAround {
-  from {
-    transform: rotateZ(0deg);
-  }
-  to {
+    -webkit-transform: rotateZ(360deg);
     transform: rotateZ(360deg);
   }
 }

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Viento</title>
 
+        <script src="jquery-2.1.4.min.js"></script>
         <script src="viento.js"></script>
         <link href="viento.css" rel="stylesheet">
 
@@ -23,7 +24,7 @@
                 font-family: sans-serif;
                 font-size: 2.0rem;
             }
-            
+
             .element {
                 width: 200px;
                 height: 200px;
@@ -61,7 +62,7 @@
                 background-color: blue;
                 color: white;
             }
-            
+
             .element5 {
                 width: 200px;
                 height: 200px;
@@ -81,31 +82,96 @@
         <button onclick="var e = document.getElementById('green');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Green</button>
         <button onclick="var e = document.getElementById('blue');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Blue</button>
         <button onclick="var e = document.getElementById('magenta');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Magenta</button>
+        <button onclick="doTheThing()">Run animation</button>
         <div id="red" class="element">
             RED
         </div>
-        
+
         <div id="yellow" class="element2">
             YELLOW
         </div>
-        
+
         <div id="green" class="element3">
             GREEN
         </div>
-        
+
         <div id="blue" class="element4">
             BLUE
         </div>
-        
+
         <div id="magenta" class="element5">
             MAGENTA
         </div>
-        
+
         <script>
-            
+
             //Imports Viento
             var v = new Viento();
-            
+
+            //This get's called
+            function doTheThing() {
+                v.fire({
+                    element: $("#red")[0],
+                    animation: {
+                        name: "v-spinAround",
+                        duration: "1s",
+                        afterDelay: 1000
+                    },
+                    callback: function f() {
+
+                        v.fire({
+                            element: $("#blue")[0],
+                            animation: {
+                                name: "v-spinAround",
+                                duration: "1s",
+                                afterDelay: 1000
+                            },
+                            callback: function() {
+
+                                v.fire({
+                                    element: $("#green")[0],
+                                    animation: {
+                                        name: "v-spinAround",
+                                        duration: "1s",
+                                        afterDelay: 1000
+                                    },
+                                    callback: function() {
+
+                                        v.fire({
+                                            element: $("#yellow")[0],
+                                            animation: {
+                                                name: "v-spinAround",
+                                                duration: "1s",
+                                                afterDelay: 1000
+                                            },
+                                            callback: function() {
+
+                                                v.fire({
+                                                    element: $("#magenta")[0],
+                                                    animation: {
+                                                        name: "v-spinAround",
+                                                        duration: "1s"
+                                                    },
+                                                    callback: function() {
+
+                                                    }
+                                                });
+
+                                            }
+                                        });
+
+                                    }
+                                });
+
+                            }
+                        });
+
+
+                    }
+                });
+            }
+
+
             //Fades in BLUE for 3 seconds
             /*v.fire({
                 element: document.getElementById("element"),
@@ -118,7 +184,7 @@
                 },
                 callback: function() {
                     //Then simultaneously fades YELLOW and GREEN
-                    
+
                     //Fades in YELLOW for 5 seconds
                     v.fire({
                         element: document.getElementById("element2"),
@@ -129,7 +195,7 @@
                         },
                         callback: function() {
                             //Once the YELLOW has completed...
-                            
+
                             //Fade out BLUE for 5 seconds
                             v.fire({
                                 element: document.getElementById("element4"),
@@ -144,7 +210,7 @@
                             });
                         }
                     });
-                    
+
                     //Fades in GREEN for 1 second
                     v.fire({
                         element: document.getElementById("element3"),
@@ -155,7 +221,7 @@
                         },
                         callback: function() {
                             //Once the GREEN has completed...
-                            
+
                             //Spin around the MAGENTA for 5 seconds
                             v.fire({
                                 element: document.getElementById("element5"),
@@ -166,11 +232,11 @@
                             });
                         }
                     });
-                    
+
                 }
             });
             */
         </script>
-        
+
     </body>
 </html>

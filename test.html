@@ -59,6 +59,7 @@
                 left: 100px;
                 display: block;
                 background-color: blue;
+                color: white;
             }
             
             .element5 {
@@ -75,23 +76,28 @@
 
     </head>
     <body>
-        <div id="element" class="element hidden">
+        <button onclick="var e = document.getElementById('red');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Red</button>
+        <button onclick="var e = document.getElementById('yellow');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Yellow</button>
+        <button onclick="var e = document.getElementById('green');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Green</button>
+        <button onclick="var e = document.getElementById('blue');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Blue</button>
+        <button onclick="var e = document.getElementById('magenta');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Magenta</button>
+        <div id="red" class="element">
             RED
         </div>
         
-        <div id="element2" class="element2 hidden">
+        <div id="yellow" class="element2">
             YELLOW
         </div>
         
-        <div id="element3" class="element3 hidden">
+        <div id="green" class="element3">
             GREEN
         </div>
         
-        <div id="element4" class="element4">
+        <div id="blue" class="element4">
             BLUE
         </div>
         
-        <div id="element5" class="element5">
+        <div id="magenta" class="element5">
             MAGENTA
         </div>
         
@@ -101,7 +107,7 @@
             var v = new Viento();
             
             //Fades in BLUE for 3 seconds
-            v.fire({
+            /*v.fire({
                 element: document.getElementById("element"),
                 animation: {
                     name: "v-fadeIn",
@@ -163,7 +169,7 @@
                     
                 }
             });
-            
+            */
         </script>
         
     </body>

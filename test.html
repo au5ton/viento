@@ -33,6 +33,7 @@
                 left: 100px;
                 display: block;
                 background-color: red;
+                z-index: -1;
             }
             .element2 {
                 width: 200px;
@@ -42,6 +43,7 @@
                 left: 300px;
                 display: block;
                 background-color: yellow;
+                z-index: -1;
             }
             .element3 {
                 width: 200px;
@@ -51,6 +53,7 @@
                 left: 100px;
                 display: block;
                 background-color: green;
+                z-index: -1;
             }
             .element4 {
                 width: 200px;
@@ -61,6 +64,7 @@
                 display: block;
                 background-color: blue;
                 color: white;
+                z-index: -1;
             }
 
             .element5 {
@@ -71,18 +75,26 @@
                 left: 500px;
                 display: block;
                 background-color: magenta;
+                z-index: -1;
             }
 
         </style>
 
     </head>
     <body>
-        <button onclick="var e = document.getElementById('red');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Red</button>
-        <button onclick="var e = document.getElementById('yellow');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Yellow</button>
-        <button onclick="var e = document.getElementById('green');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Green</button>
-        <button onclick="var e = document.getElementById('blue');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Blue</button>
-        <button onclick="var e = document.getElementById('magenta');if(e.style.visibility === 'hidden'){e.style.visibility = 'visible';}else{e.style.visibility = 'hidden';}">Toggle Magenta</button>
-        <button onclick="doTheThing()">Run animation</button>
+        <div>
+            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#red').removeClass('hidden');}else{this.last=true;$('#red').addClass('hidden')}">Toggle Red</button>
+            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#yellow').removeClass('hidden');}else{this.last=true;$('#yellow').addClass('hidden')}">Toggle Yellow</button>
+            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#green').removeClass('hidden');}else{this.last=true;$('#green').addClass('hidden')}">Toggle Green</button>
+            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#blue').removeClass('hidden');}else{this.last=true;$('#blue').addClass('hidden')}">Toggle Blue</button>
+            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#magenta').removeClass('hidden');}else{this.last=true;$('#magenta').addClass('hidden')}">Toggle Magenta</button>
+        </div>
+
+        <div>
+            <button onclick="sequentialAnimationsTest()">sequentialAnimationsTest</button>
+            <button onclick="entranceAndExitTest()">entranceAndExitTest</button>
+        </div>
+
         <div id="red" class="element">
             RED
         </div>
@@ -108,8 +120,7 @@
             //Imports Viento
             var v = new Viento();
 
-            //This get's called
-            function doTheThing() {
+            function sequentialAnimationsTest() {
                 v.fire({
                     element: $("#red")[0],
                     animation: {
@@ -171,71 +182,71 @@
                 });
             }
 
+            function entranceAndExitTest(){
+                //This assumes that all test elements are in the hidden state to begin with
 
-            //Fades in BLUE for 3 seconds
-            /*v.fire({
-                element: document.getElementById("element"),
-                animation: {
-                    name: "v-fadeIn",
-                    duration: "3s",
-                    type: "entrance",
-                    beforeDelay: 3000,
-                    afterDelay: 3000
-                },
-                callback: function() {
-                    //Then simultaneously fades YELLOW and GREEN
+                v.fire({
+                    element: $("#red")[0],
+                    animation: {
+                        name: "v-fadeIn",
+                        duration: "1s",
+                        type: "entrance"
+                    },
+                    callback: function(){
 
-                    //Fades in YELLOW for 5 seconds
-                    v.fire({
-                        element: document.getElementById("element2"),
-                        animation: {
-                            name: "v-fadeIn",
-                            duration: "5s",
-                            type: "entrance"
-                        },
-                        callback: function() {
-                            //Once the YELLOW has completed...
+                        v.fire({
+                            element: $("#yellow")[0],
+                            animation: {
+                                name: "v-fadeIn",
+                                duration: "1s",
+                                type: "entrance"
+                            },
+                            callback: function(){
 
-                            //Fade out BLUE for 5 seconds
-                            v.fire({
-                                element: document.getElementById("element4"),
-                                animation: {
-                                    name: "v-fadeOut",
-                                    duration: "5s",
-                                    type: "exit"
-                                },
-                                callback: function() {
-                                    console.log("Done.");
-                                }
-                            });
-                        }
-                    });
+                                v.fire({
+                                    element: $("#green")[0],
+                                    animation: {
+                                        name: "v-fadeIn",
+                                        duration: "1s",
+                                        type: "entrance"
+                                    },
+                                    callback: function(){
 
-                    //Fades in GREEN for 1 second
-                    v.fire({
-                        element: document.getElementById("element3"),
-                        animation: {
-                            name: "v-fadeIn",
-                            duration: "1s",
-                            type: "entrance"
-                        },
-                        callback: function() {
-                            //Once the GREEN has completed...
+                                        v.fire({
+                                            element: $("#blue")[0],
+                                            animation: {
+                                                name: "v-fadeIn",
+                                                duration: "1s",
+                                                type: "entrance"
+                                            },
+                                            callback: function(){
 
-                            //Spin around the MAGENTA for 5 seconds
-                            v.fire({
-                                element: document.getElementById("element5"),
-                                animation: {
-                                    name: "v-spinAround",
-                                    duration: "5s"
-                                }
-                            });
-                        }
-                    });
+                                                v.fire({
+                                                    element: $("#magenta")[0],
+                                                    animation: {
+                                                        name: "v-fadeIn",
+                                                        duration: "1s",
+                                                        type: "entrance"
+                                                    },
+                                                    callback: function(){
+                                                        //
+                                                    }
+                                                });
 
-                }
-            });
-            */
+                                            }
+                                        });
+
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+                });
+
+            }
+
         </script>
 
     </body>

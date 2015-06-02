@@ -39,8 +39,10 @@ Viento.prototype.fire = function(t) {
                     t.element.style.visibility = "hidden";
                 }
                 else if(t.animation.resetAfter === true){
-                    t.element.style.animationName = undefined;
-                    t.element.style.animationDuration = undefined;
+                    t.element.style.animationName = "";
+                    t.element.style.animationDuration = "";
+                    $(t.element).removeClass("hidden");
+                    t.element.style.visibility= "";
                 }
                 t.callback();
 

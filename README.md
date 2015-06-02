@@ -31,7 +31,7 @@ Viento.js provides a unique wrap to let you fire CSS animations. To learn how vi
 var v = new Viento();
 
 v.fire({
-  element: $("#box")[0], //Provide the element object, you could also use document.getElementById() 
+  element: $("#box")[0], //Provide A SINGLE element object, you could also use document.getElementById(). 
   animation: {
     //Supply any CSS animation related property
     name: "spinAround", //`animation-name: spinAround;` equivalent
@@ -122,3 +122,34 @@ v.fire({
 ```
 
 In the above example, #box and #circle both run the same animations for the same duration at the same time. In addition, once #circle has finised animating, #triangle will be animated.
+
+###All other options
+
+```javascript
+
+var v = new Viento();
+
+v.fire({
+  element: $("#foo")[0], //Required, the single element you will be animating.
+  animation: {
+    beforeDelay: 1000, //Optional, milliseconds delay before the animation begins
+    afterDelay: 2000, //Optional, milliseconds delay after the animation ends
+    name: "bar", //Required, CSS bind to the animation-name property.
+    duration: "1s", //Required, CSS bind to the animation-duration property.
+    delay: "2s", //Optional, CSS bind to the animation-delay property.
+    direction: "alternate", //Optional, CSS bind to the animation-direction property.
+    fillMode: "none", //Optional, CSS bind to the animation-fill-mode property.
+    iterationCount: "0", //Optional, CSS bind to the animation-iteration-count property.
+    playState: "running", //Optional, CSS bind to the animation-play-state property.
+    timingFunctions: "ease" //Optional, CSS bind to the animation-timing-functions property.
+    animation: "" //Optional, CSS bind to the animation property. If specified, it will overwrite the others.
+  },
+  withAnimation: function(){
+    //Optional, code run right before initiating the animation
+  },
+  callback: function(){
+    //Optional, code run immediately following the completion of the animation
+  }
+});
+
+```

@@ -20,6 +20,8 @@
                 height: 100%;
                 margin: 0;
                 background-color: darkslategrey;
+                font-family: sans-serif;
+                font-size: 2.0rem;
             }
             
             .element {
@@ -74,23 +76,23 @@
     </head>
     <body>
         <div id="element" class="element hidden">
-            Hello, World!
+            RED
         </div>
         
         <div id="element2" class="element2 hidden">
-            Hello, World!
+            YELLOW
         </div>
         
         <div id="element3" class="element3 hidden">
-            Hello, World!
+            GREEN
         </div>
         
         <div id="element4" class="element4">
-            Hello, World!
+            BLUE
         </div>
         
         <div id="element5" class="element5">
-            Hello, World!
+            MAGENTA
         </div>
         
         <script>
@@ -98,16 +100,20 @@
             //Imports Viento
             var v = new Viento();
             
-            //Fires the first animation 
+            //Fades in BLUE for 3 seconds
             v.fire({
                 element: document.getElementById("element"),
                 animation: {
                     name: "v-fadeIn",
                     duration: "3s",
-                    type: "entrance"
+                    type: "entrance",
+                    beforeDelay: 3000,
+                    afterDelay: 3000
                 },
                 callback: function() {
+                    //Then simultaneously fades YELLOW and GREEN
                     
+                    //Fades in YELLOW for 5 seconds
                     v.fire({
                         element: document.getElementById("element2"),
                         animation: {
@@ -116,6 +122,9 @@
                             type: "entrance"
                         },
                         callback: function() {
+                            //Once the YELLOW has completed...
+                            
+                            //Fade out BLUE for 5 seconds
                             v.fire({
                                 element: document.getElementById("element4"),
                                 animation: {
@@ -130,6 +139,7 @@
                         }
                     });
                     
+                    //Fades in GREEN for 1 second
                     v.fire({
                         element: document.getElementById("element3"),
                         animation: {
@@ -138,6 +148,9 @@
                             type: "entrance"
                         },
                         callback: function() {
+                            //Once the GREEN has completed...
+                            
+                            //Spin around the MAGENTA for 5 seconds
                             v.fire({
                                 element: document.getElementById("element5"),
                                 animation: {

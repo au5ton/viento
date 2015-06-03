@@ -4,7 +4,11 @@ function Viento() {
     //
 }
 
+Viento.prototype.callInteration = 0;
+
 Viento.prototype.fire = function(t) {
+    console.log("call iteration: "+Viento.prototype.callInteration);
+    Viento.prototype.callInteration++;
     //If these are undefined, set a default value to stop errors
     if(t.animation.beforeDelay === undefined) {
         t.animation.beforeDelay = 0;
@@ -33,7 +37,8 @@ Viento.prototype.fire = function(t) {
     //Timeout function for an optional beforeDelay time
     setTimeout(function(){
         //Set the given animation properties, thus running the CSS animation
-        t.withAnimation();
+        //t.withAnimation();
+        //Standard
         t.element.style.animationName = t.animation.name;
         t.element.style.animationDuration = t.animation.duration;
         t.element.style.animationDelay = t.animation.delay;
@@ -42,6 +47,15 @@ Viento.prototype.fire = function(t) {
         t.element.style.animationIterationCount = t.animation.iterationCount;
         t.element.style.animationPlayState = t.animation.playState;
         t.element.style.animationTimingFunctions = t.animation.timingFunctions;
+        //-webkit-
+        t.element.style.webkitAnimationName = t.animation.name;
+        t.element.style.webkitAnimationDuration = t.animation.duration;
+        t.element.style.webkitAnimationDelay = t.animation.delay;
+        t.element.style.webkitAnimationDirection = t.animation.direction;
+        t.element.style.webkitAnimationFillMode = t.animation.fillMode;
+        t.element.style.webkitAnimationIterationCount = t.animation.iterationCount;
+        t.element.style.webkitAnimationPlayState = t.animation.playState;
+        t.element.style.webkitAnimationTimingFunctions = t.animation.timingFunctions;
         //Style.animation will overwrite everything before it, so we only want to set it if it has data. This is to keep us from setting everything to undefined or default values.
         if(t.animation.animation !== undefined) {
             t.element.style.animation = t.animation.animation;
@@ -59,6 +73,7 @@ Viento.prototype.fire = function(t) {
                 }
                 //If resetAfter is enabled, reset the CSS animation properties and involved classes
                 if(t.animation.resetAfter === true){
+                    //Standard
                     t.element.style.animationName = "";
                     t.element.style.animationDuration = "";
                     t.element.style.animationDelay = "";
@@ -68,6 +83,15 @@ Viento.prototype.fire = function(t) {
                     t.element.style.animationPlayState = "";
                     t.element.style.animationTimingFunctions = "";
                     t.element.style.animation = "";
+                    //-webkit-
+                    t.element.style.webkitAnimationName = "";
+                    t.element.style.webkitAnimationDuration = "";
+                    t.element.style.webkitAnimationDelay = "";
+                    t.element.style.webkitAnimationDirection = "";
+                    t.element.style.webkitAnimationFillMode = "";
+                    t.element.style.webkitAnimationIterationCount = "";
+                    t.element.style.webkitAnimationPlayState = "";
+                    t.element.style.webkitAnimationTimingFunctions = "";
                     //If this element has an entrance animation, remove the "hidden" class from it and reset the visibility to default
                     if(t.animation.type === "entrance") {
                         $(t.element).removeClass("hidden");
@@ -89,4 +113,12 @@ Viento.prototype.fire = function(t) {
 
 
 
+}
+
+//Viento.prototype.fire = function(t){
+//    //
+//}
+
+Viento.prototype.listen = function(t){
+    //
 }

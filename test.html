@@ -121,15 +121,15 @@
             //Imports Viento
             var v = new Viento();
 
-//            v.fire({
-//                element: $("#red")[0],
-//                animation: {
-//                    name: "v-spinAround",
-//                    duration: "1s",
-//                    resetAfter: false
-//                }
-//            });
-            
+            //            v.fire({
+            //                element: $("#red")[0],
+            //                animation: {
+            //                    name: "v-spinAround",
+            //                    duration: "1s",
+            //                    resetAfter: false
+            //                }
+            //            });
+
             function sequentialAnimationsTest() {
                 v.fire({
                     element: $("#red")[0],
@@ -203,55 +203,55 @@
                         type: "entrance"
                     },
                     callback: function(){
+                        //
+                    }
+                });
 
-                        v.fire({
-                            element: $("#yellow")[0],
-                            animation: {
-                                name: "v-fadeIn",
-                                duration: "1s",
-                                type: "entrance"
-                            },
-                            callback: function(){
+                v.fire({
+                    element: $("#blue")[0],
+                    animation: {
+                        name: "v-fadeIn",
+                        duration: "1s",
+                        type: "entrance"
+                    },
+                    callback: function(){
+                        //
+                    }
+                });
 
-                                v.fire({
-                                    element: $("#green")[0],
-                                    animation: {
-                                        name: "v-fadeIn",
-                                        duration: "1s",
-                                        type: "entrance"
-                                    },
-                                    callback: function(){
+                v.fire({
+                    element: $("#green")[0],
+                    animation: {
+                        name: "v-fadeIn",
+                        duration: "1s",
+                        type: "entrance"
+                    },
+                    callback: function(){
+                        //
+                    }
+                });
 
-                                        v.fire({
-                                            element: $("#blue")[0],
-                                            animation: {
-                                                name: "v-fadeIn",
-                                                duration: "1s",
-                                                type: "entrance"
-                                            },
-                                            callback: function(){
+                v.fire({
+                    element: $("#green")[0],
+                    animation: {
+                        name: "v-fadeIn",
+                        duration: "1s",
+                        type: "entrance"
+                    },
+                    callback: function(){
+                        //
+                    }
+                });
 
-                                                v.fire({
-                                                    element: $("#magenta")[0],
-                                                    animation: {
-                                                        name: "v-fadeIn",
-                                                        duration: "1s",
-                                                        type: "entrance"
-                                                    },
-                                                    callback: function(){
-                                                        //
-                                                    }
-                                                });
-
-                                            }
-                                        });
-
-                                    }
-                                });
-
-                            }
-                        });
-
+                v.fire({
+                    element: $("#yellow")[0],
+                    animation: {
+                        name: "v-fadeIn",
+                        duration: "1s",
+                        type: "entrance"
+                    },
+                    callback: function(){
+                        //
                     }
                 });
 

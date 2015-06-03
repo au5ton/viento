@@ -8,6 +8,7 @@
         <script src="jquery-2.1.4.min.js"></script>
         <script src="viento.js"></script>
         <link href="viento.css" rel="stylesheet">
+        <script src="modernizr.min.js"></script>
 
         <style>
 
@@ -135,16 +136,16 @@
                     animation: {
                         name: "v-spinAround",
                         duration: "1s",
-                        afterDelay: 500
+                        afterDelay: 100
                     },
-                    callback: function f() {
+                    callback: function() {
 
                         v.fire({
                             element: $("#blue")[0],
                             animation: {
                                 name: "v-spinAround",
                                 duration: "1s",
-                                afterDelay: 500
+                                afterDelay: 100
                             },
                             callback: function() {
 
@@ -153,7 +154,7 @@
                                     animation: {
                                         name: "v-spinAround",
                                         duration: "1s",
-                                        afterDelay: 500
+                                        afterDelay: 100
                                     },
                                     callback: function() {
 
@@ -162,7 +163,7 @@
                                             animation: {
                                                 name: "v-spinAround",
                                                 duration: "1s",
-                                                afterDelay: 500
+                                                afterDelay: 100
                                             },
                                             callback: function() {
 

@@ -19,7 +19,7 @@ Viento.prototype.fire = function(t) {
     if(t.animation.resetAfter === undefined) {
         t.animation.resetAfter = true;
     }
-    
+
     if(t.callback === undefined) {
         t.callback = function() {};
     }
@@ -29,9 +29,15 @@ Viento.prototype.fire = function(t) {
 
     //If this is an entrance animation, wait for the animation to start to reveal the element
     if(t.animation.type === "entrance") {
-        t.element.addEventListener("animationstart",function(){
-            t.element.style.visibility = "visible";
-        });
+        if(t.element.getAttribute("data-v-hasAnimationStartListener") === "true"){
+            console.log("Element with id "+t.element.getAttribute("id")+" already has an animationStart listener.");
+        }
+        else {
+            t.element.setAttribute("data-v-hasAnimationStartListener","true");
+            t.element.addEventListener("animationstart",function(){
+                t.element.style.visibility = "visible";
+            });
+        }
     }
 
     //Timeout function for an optional beforeDelay time
@@ -62,63 +68,54 @@ Viento.prototype.fire = function(t) {
         }
 
         //Wait for the animation to end
-        t.element.addEventListener("animationend",function(){
+        if(t.element.getAttribute("data-v-hasAnimationEndListener") === "true"){
+            console.log("Element with id "+t.element.getAttribute("id")+" already has an animationEnd listener.");
+        }
+        else {
+            t.element.setAttribute("data-v-hasAnimationEndListener","true");
+            t.element.addEventListener("animationend",function(){
+                //Timeout function for an optional afterDelay time
+                setTimeout(function(){
 
-            //Timeout function for an optional afterDelay time
-            setTimeout(function(){
-
-                //If this is an exit animation, hide the element
-                if(t.animation.type === "exit") {
-                    t.element.style.visibility = "hidden";
-                }
-                //If resetAfter is enabled, reset the CSS animation properties and involved classes
-                if(t.animation.resetAfter === true){
-                    //Standard
-                    t.element.style.animationName = "";
-                    t.element.style.animationDuration = "";
-                    t.element.style.animationDelay = "";
-                    t.element.style.animationDirection = "";
-                    t.element.style.animationFillMode = "";
-                    t.element.style.animationIterationCount = "";
-                    t.element.style.animationPlayState = "";
-                    t.element.style.animationTimingFunctions = "";
-                    t.element.style.animation = "";
-                    //-webkit-
-                    t.element.style.webkitAnimationName = "";
-                    t.element.style.webkitAnimationDuration = "";
-                    t.element.style.webkitAnimationDelay = "";
-                    t.element.style.webkitAnimationDirection = "";
-                    t.element.style.webkitAnimationFillMode = "";
-                    t.element.style.webkitAnimationIterationCount = "";
-                    t.element.style.webkitAnimationPlayState = "";
-                    t.element.style.webkitAnimationTimingFunctions = "";
-                    //If this element has an entrance animation, remove the "hidden" class from it and reset the visibility to default
-                    if(t.animation.type === "entrance") {
-                        $(t.element).removeClass("hidden");
-                        t.element.style.visibility= "";
+                    //If this is an exit animation, hide the element
+                    if(t.animation.type === "exit") {
+                        t.element.style.visibility = "hidden";
                     }
-                }
-                //Everything is done, run the callback function
-                t.callback();
+                    //If resetAfter is enabled, reset the CSS animation properties and involved classes
+                    if(t.animation.resetAfter === true){
+                        //If this element has an entrance animation, remove the "hidden" class from it and reset the visibility to default
+                        if(t.animation.type === "entrance") {
+                            $(t.element).removeClass("hidden");
+                            t.element.style.visibility= "";
+                        }
+                        
+                        //Standard
+                        t.element.style.animationName = "";
+                        t.element.style.animationDuration = "";
+                        t.element.style.animationDelay = "";
+                        t.element.style.animationDirection = "";
+                        t.element.style.animationFillMode = "";
+                        t.element.style.animationIterationCount = "";
+                        t.element.style.animationPlayState = "";
+                        t.element.style.animationTimingFunctions = "";
+                        t.element.style.animation = "";
+                        //-webkit-
+                        t.element.style.webkitAnimationName = "";
+                        t.element.style.webkitAnimationDuration = "";
+                        t.element.style.webkitAnimationDelay = "";
+                        t.element.style.webkitAnimationDirection = "";
+                        t.element.style.webkitAnimationFillMode = "";
+                        t.element.style.webkitAnimationIterationCount = "";
+                        t.element.style.webkitAnimationPlayState = "";
+                        t.element.style.webkitAnimationTimingFunctions = "";
+                    }
+                    //Everything is done, run the callback function
+                    t.callback();
 
-            },t.animation.afterDelay);
-
-        });
-
-
-
-
+                },t.animation.afterDelay);
+            });
+        }
 
     },t.animation.beforeDelay);
-
-
-
-}
-
-//Viento.prototype.fire = function(t){
-//    //
-//}
-
-Viento.prototype.listen = function(t){
-    //
+    
 }

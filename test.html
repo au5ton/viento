@@ -267,6 +267,16 @@
                         }
                     });
                 });
+                $(".box").on("tap",function(){
+                    console.log(this);
+                    v.fire({
+                        element: this,
+                        animation: {
+                            name: "v-spinAround",
+                            duration: "0.5s"
+                        }
+                    });
+                });
 
             });
 

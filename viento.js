@@ -5,10 +5,14 @@ function Viento() {
 }
 
 Viento.prototype.callInteration = 0;
+Viento.prototype.t = undefined;
 
 Viento.prototype.fire = function(t) {
     console.log("call iteration: "+Viento.prototype.callInteration);
     Viento.prototype.callInteration++;
+
+    Viento.prototype.t = t;
+
     //If these are undefined, set a default value to stop errors
     if(t.animation.beforeDelay === undefined) {
         t.animation.beforeDelay = 0;
@@ -34,14 +38,14 @@ Viento.prototype.fire = function(t) {
         }
         else {
             t.element.setAttribute("data-v-hasAnimationStartListener","true");
-            t.element.addEventListener("animationstart",function(){
-                t.element.style.visibility = "visible";
-            });
+            var onAnimationStart = function(event){
+                event.target.style.visibility = "visible";
+            };
+            t.element.addEventListener("animationstart",onAnimationStart);
         }
     }
 
-    //Timeout function for an optional beforeDelay time
-    setTimeout(function(){
+    function f1() {
         //Set the given animation properties, thus running the CSS animation
         //t.withAnimation();
         //Standard
@@ -73,10 +77,10 @@ Viento.prototype.fire = function(t) {
         }
         else {
             t.element.setAttribute("data-v-hasAnimationEndListener","true");
-            t.element.addEventListener("animationend",function(){
+            var onAnimationEnd = function(event){
                 //Timeout function for an optional afterDelay time
-                setTimeout(function(){
 
+                function f2(){
                     //If this is an exit animation, hide the element
                     if(t.animation.type === "exit") {
                         t.element.style.visibility = "hidden";
@@ -88,34 +92,102 @@ Viento.prototype.fire = function(t) {
                             $(t.element).removeClass("hidden");
                             t.element.style.visibility= "";
                         }
-                        
+
                         //Standard
-                        t.element.style.animationName = "";
-                        t.element.style.animationDuration = "";
-                        t.element.style.animationDelay = "";
-                        t.element.style.animationDirection = "";
-                        t.element.style.animationFillMode = "";
-                        t.element.style.animationIterationCount = "";
-                        t.element.style.animationPlayState = "";
-                        t.element.style.animationTimingFunctions = "";
-                        t.element.style.animation = "";
+                        event.target.style.animationName = "";
+                        event.target.style.animationDuration = "";
+                        event.target.style.animationDelay = "";
+                        event.target.style.animationDirection = "";
+                        event.target.style.animationFillMode = "";
+                        event.target.style.animationIterationCount = "";
+                        event.target.style.animationPlayState = "";
+                        event.target.style.animationTimingFunctions = "";
+                        event.target.style.animation = "";
                         //-webkit-
-                        t.element.style.webkitAnimationName = "";
-                        t.element.style.webkitAnimationDuration = "";
-                        t.element.style.webkitAnimationDelay = "";
-                        t.element.style.webkitAnimationDirection = "";
-                        t.element.style.webkitAnimationFillMode = "";
-                        t.element.style.webkitAnimationIterationCount = "";
-                        t.element.style.webkitAnimationPlayState = "";
-                        t.element.style.webkitAnimationTimingFunctions = "";
+                        event.target.style.webkitAnimationName = "";
+                        event.target.style.webkitAnimationDuration = "";
+                        event.target.style.webkitAnimationDelay = "";
+                        event.target.style.webkitAnimationDirection = "";
+                        event.target.style.webkitAnimationFillMode = "";
+                        event.target.style.webkitAnimationIterationCount = "";
+                        event.target.style.webkitAnimationPlayState = "";
+                        event.target.style.webkitAnimationTimingFunctions = "";
                     }
                     //Everything is done, run the callback function
                     t.callback();
+                }
+                if(t.animation.afterDelay <= 0) {
+                    f2();
+                }
+                else {
+                    setTimeout(f2,t.animation.afterDelay);
+                }
+            };
+            t.element.addEventListener("animationend",onAnimationEnd);
+        }
+    }
 
-                },t.animation.afterDelay);
+
+    if(t.animation.beforeDelay <= 0) {
+        f1();
+    }
+    else {
+        //Timeout function for an optional beforeDelay time
+        setTimeout(f1,t.animation.beforeDelay);
+    }
+
+}
+
+Viento.prototype.burst = function(b) {
+
+    var errors = false;
+
+    /*
+    Model:
+
+    {
+        elements: [],
+        method: "allAtOnce",
+        animation: {
+            //same block as Viento.fire()
+        }
+    }
+    */
+
+    if(b === undefined){
+        return;
+    }
+    else {
+        if(b.elements === undefined) {
+            console.error("No elements were specified.");
+            errors = true;
+        }
+        if(b.method === undefined) {
+            console.log("You didn't define a method to use. Doing all at once by default.");
+            b.method = "allAtOnce";
+        }
+        if(b.animation ===  undefined) {
+            console.error("No animation was specified.");
+            errors = true;
+        }
+        else {
+            if(b.animation.name === undefined) {
+                console.error("No animation name was specified.");
+            }
+        }
+        if(errors === true) {
+            //return;
+        }
+    }
+
+    if(b.method === "allAtOnce") {
+        for(var i = 0; i < b.elements.length; i++) {
+            //console.log(b.elements[i]);
+            Viento.prototype.fire({
+                element: b.elements[i],
+                animation: b.animation
             });
         }
+    }
 
-    },t.animation.beforeDelay);
-    
 }

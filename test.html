@@ -25,10 +25,13 @@
                 font-family: sans-serif;
                 font-size: 2.0rem;
             }
-
-            .element {
+            
+            .box {
                 width: 200px;
                 height: 200px;
+            }
+
+            #red {
                 position: absolute;
                 top: 100px;
                 left: 100px;
@@ -36,9 +39,7 @@
                 background-color: red;
                 z-index: -1;
             }
-            .element2 {
-                width: 200px;
-                height: 200px;
+            #yellow {
                 position: absolute;
                 top: 300px;
                 left: 300px;
@@ -46,9 +47,7 @@
                 background-color: yellow;
                 z-index: -1;
             }
-            .element3 {
-                width: 200px;
-                height: 200px;
+            #green {
                 position: absolute;
                 top: 500px;
                 left: 100px;
@@ -56,9 +55,7 @@
                 background-color: green;
                 z-index: -1;
             }
-            .element4 {
-                width: 200px;
-                height: 200px;
+            #blue {
                 position: absolute;
                 top: 300px;
                 left: 100px;
@@ -68,9 +65,7 @@
                 z-index: -1;
             }
 
-            .element5 {
-                width: 200px;
-                height: 200px;
+            #magenta {
                 position: absolute;
                 top: 100px;
                 left: 500px;
@@ -92,27 +87,27 @@
         </div>
 
         <div>
-            <button onclick="sequentialAnimationsTest()">sequentialAnimationsTest</button>
-            <button onclick="entranceAndExitTest()">entranceAndExitTest</button>
+            <button onclick="sequentialAnimationsTest();">sequentialAnimationsTest</button>
+            <button onclick="entranceAndExitTest();">entranceAndExitTest</button>
         </div>
 
-        <div id="red" class="element">
+        <div id="red" class="box">
             RED
         </div>
 
-        <div id="yellow" class="element2">
+        <div id="yellow" class="box">
             YELLOW
         </div>
 
-        <div id="green" class="element3">
+        <div id="green" class="box">
             GREEN
         </div>
 
-        <div id="blue" class="element4">
+        <div id="blue" class="box">
             BLUE
         </div>
 
-        <div id="magenta" class="element5">
+        <div id="magenta" class="box">
             MAGENTA
         </div>
 
@@ -135,8 +130,7 @@
                     element: $("#red")[0],
                     animation: {
                         name: "v-spinAround",
-                        duration: "1s",
-                        afterDelay: 100
+                        duration: "1s"
                     },
                     callback: function() {
 
@@ -144,8 +138,7 @@
                             element: $("#blue")[0],
                             animation: {
                                 name: "v-spinAround",
-                                duration: "1s",
-                                afterDelay: 100
+                                duration: "1.5s"
                             },
                             callback: function() {
 
@@ -153,8 +146,7 @@
                                     element: $("#green")[0],
                                     animation: {
                                         name: "v-spinAround",
-                                        duration: "1s",
-                                        afterDelay: 100
+                                        duration: "2s"
                                     },
                                     callback: function() {
 
@@ -162,8 +154,7 @@
                                             element: $("#yellow")[0],
                                             animation: {
                                                 name: "v-spinAround",
-                                                duration: "1s",
-                                                afterDelay: 100
+                                                duration: "2.5s"
                                             },
                                             callback: function() {
 
@@ -171,7 +162,7 @@
                                                     element: $("#magenta")[0],
                                                     animation: {
                                                         name: "v-spinAround",
-                                                        duration: "1s"
+                                                        duration: "3s"
                                                     },
                                                     callback: function() {
 
@@ -211,7 +202,7 @@
                     element: $("#blue")[0],
                     animation: {
                         name: "v-fadeIn",
-                        duration: "1s",
+                        duration: "1.5s",
                         type: "entrance"
                     },
                     callback: function(){
@@ -223,7 +214,7 @@
                     element: $("#green")[0],
                     animation: {
                         name: "v-fadeIn",
-                        duration: "1s",
+                        duration: "2s",
                         type: "entrance"
                     },
                     callback: function(){
@@ -235,7 +226,7 @@
                     element: $("#green")[0],
                     animation: {
                         name: "v-fadeIn",
-                        duration: "1s",
+                        duration: "2.5s",
                         type: "entrance"
                     },
                     callback: function(){
@@ -247,7 +238,19 @@
                     element: $("#yellow")[0],
                     animation: {
                         name: "v-fadeIn",
-                        duration: "1s",
+                        duration: "3s",
+                        type: "entrance"
+                    },
+                    callback: function(){
+                        //
+                    }
+                });
+                
+                v.fire({
+                    element: $("#magenta")[0],
+                    animation: {
+                        name: "v-fadeIn",
+                        duration: "3.5s",
                         type: "entrance"
                     },
                     callback: function(){

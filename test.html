@@ -25,7 +25,7 @@
                 font-family: sans-serif;
                 font-size: 2.0rem;
             }
-            
+
             .box {
                 width: 200px;
                 height: 200px;
@@ -37,7 +37,6 @@
                 left: 100px;
                 display: block;
                 background-color: red;
-                z-index: -1;
             }
             #yellow {
                 position: absolute;
@@ -45,7 +44,6 @@
                 left: 300px;
                 display: block;
                 background-color: yellow;
-                z-index: -1;
             }
             #green {
                 position: absolute;
@@ -53,7 +51,6 @@
                 left: 100px;
                 display: block;
                 background-color: green;
-                z-index: -1;
             }
             #blue {
                 position: absolute;
@@ -62,7 +59,6 @@
                 display: block;
                 background-color: blue;
                 color: white;
-                z-index: -1;
             }
 
             #magenta {
@@ -71,7 +67,6 @@
                 left: 500px;
                 display: block;
                 background-color: magenta;
-                z-index: -1;
             }
 
         </style>
@@ -92,23 +87,23 @@
         </div>
 
         <div id="red" class="box">
-            RED
+            <a>RED</a>
         </div>
 
         <div id="yellow" class="box">
-            YELLOW
+            <a>YELLOW</a>
         </div>
 
         <div id="green" class="box">
-            GREEN
+            <a>GREEN</a>
         </div>
 
         <div id="blue" class="box">
-            BLUE
+            <a>BLUE</a>
         </div>
 
         <div id="magenta" class="box">
-            MAGENTA
+            <a>MAGENTA</a>
         </div>
 
         <script>
@@ -245,7 +240,7 @@
                         //
                     }
                 });
-                
+
                 v.fire({
                     element: $("#magenta")[0],
                     animation: {
@@ -259,6 +254,21 @@
                 });
 
             }
+
+            $(document).ready(function(){
+
+                $(".box").on("click",function(){
+                    console.log(this);
+                    v.fire({
+                        element: this,
+                        animation: {
+                            name: "v-spinAround",
+                            duration: "0.5s"
+                        }
+                    });
+                });
+
+            });
 
         </script>
 

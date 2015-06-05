@@ -4,7 +4,7 @@ viento
 Fire and manage CSS animations on-the-fly. Tested to be compatible with [Animate.css](https://daneden.github.io/animate.css/).
 
 ##Purpose
-Viento provides a neat way to manage CSS animations and their properties, control flow, and timing.
+Viento provides a neat way to manage CSS animations and their properties, control flow, and timing. Also, "viento" means "wind" in Spanish, because this library makes CSS animations *a breeze*.
 
 ##Be forewarned
 This is very much a prototype and *will* have bugs here and there.

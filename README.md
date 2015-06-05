@@ -7,7 +7,7 @@ Fire and manage CSS animations on-the-fly. Tested to be compatible with [Animate
 Viento provides a neat way to manage CSS animations and their properties, control flow, and timing.
 
 ##Be forewarned
-**This is very much a prototype and *will* have bugs here and there. Most notably, [issue #3](https://github.com/au5ton/viento/issues/3).**
+This is very much a prototype and *will* have bugs here and there.
 
 ##Installation
 Download viento.js (uncompressed) and put it whereever you'd like.
@@ -22,6 +22,14 @@ v.fire();
 
 ##Dependencies
 Viento.js requires jQuery 1.0 and above because of its selectors, element manipulation, and event handling functionality. You probably already use this library anyway.
+
+This library also requires that you have a `hidden` CSS class somewhere in your loaded CSS.
+
+```css
+.hidden {
+    visibility: hidden;
+}
+```
 
 ##Usage
 Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works internally, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/viento.js). Let's go over some basic usage. **These examples contain animations from the [Animate.css](https://daneden.github.io/animate.css/) animation library.**

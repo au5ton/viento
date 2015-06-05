@@ -10,6 +10,7 @@ function Viento() {
 
 Viento.prototype.callInteration = 0;
 Viento.prototype.t = undefined;
+Viento.prototype.isReady = false;
 
 Viento.prototype.fire = function(t) {
     console.log("call iteration: "+Viento.prototype.callInteration);
@@ -137,21 +138,9 @@ Viento.prototype.fire = function(t) {
 }
 
 Viento.prototype.burst = function(b) {
-
+    
     var errors = false;
-
-    /*
-    Model:
-
-    {
-        elements: [],
-        method: "allAtOnce",
-        animation: {
-            //same block as Viento.fire()
-        }
-    }
-    */
-
+    
     if(b === undefined){
         return;
     }
@@ -187,8 +176,10 @@ Viento.prototype.burst = function(b) {
             });
         }
     }
-    else if(b.method === "oneAtATime") {
-        window.cond = undefined;
+    /*else if(b.method === "oneAtATime") {
+        
+        //TODO: figure out how to run asynchronous functions "one at a time" 
+        
         for(var i = 0; i < b.elements.length; i++) {
             Viento.prototype.fire({
                 element: b.elements[i],
@@ -199,6 +190,6 @@ Viento.prototype.burst = function(b) {
             });
         }
 
-    }
+    }*/
 
 }

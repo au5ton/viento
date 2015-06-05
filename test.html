@@ -26,6 +26,10 @@
                 font-size: 2.0rem;
             }
 
+            .hidden {
+                visibility: hidden;
+            }
+            
             .box {
                 width: 200px;
                 height: 200px;
@@ -50,7 +54,7 @@
                 top: 500px;
                 left: 100px;
                 display: block;
-                background-color: green;
+                background-color: lime;
             }
             #blue {
                 position: absolute;
@@ -74,11 +78,11 @@
     </head>
     <body>
         <div>
-            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#red').removeClass('hidden');}else{this.last=true;$('#red').addClass('hidden')}">Toggle Red</button>
-            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#yellow').removeClass('hidden');}else{this.last=true;$('#yellow').addClass('hidden')}">Toggle Yellow</button>
-            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#green').removeClass('hidden');}else{this.last=true;$('#green').addClass('hidden')}">Toggle Green</button>
-            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#blue').removeClass('hidden');}else{this.last=true;$('#blue').addClass('hidden')}">Toggle Blue</button>
-            <button onclick="if(this.last === true || this.last === undefined){this.last=false;$('#magenta').removeClass('hidden');}else{this.last=true;$('#magenta').addClass('hidden')}">Toggle Magenta</button>
+            <button onclick="$('#red').toggleClass('hidden');">Toggle Red</button>
+            <button onclick="$('#yellow').toggleClass('hidden');">Toggle Yellow</button>
+            <button onclick="$('#green').toggleClass('hidden');">Toggle Green</button>
+            <button onclick="$('#blue').toggleClass('hidden')">Toggle Blue</button>
+            <button onclick="$('#magenta').toggleClass('hidden')">Toggle Magenta</button>
         </div>
 
         <div>
@@ -135,7 +139,7 @@
                             element: $("#blue")[0],
                             animation: {
                                 name: "flip",
-                                duration: "1.5s"
+                                duration: "1s"
                             },
                             callback: function() {
 
@@ -143,7 +147,7 @@
                                     element: $("#green")[0],
                                     animation: {
                                         name: "flip",
-                                        duration: "2s"
+                                        duration: "1s"
                                     },
                                     callback: function() {
 
@@ -151,7 +155,7 @@
                                             element: $("#yellow")[0],
                                             animation: {
                                                 name: "flip",
-                                                duration: "2.5s"
+                                                duration: "1s"
                                             },
                                             callback: function() {
 
@@ -159,7 +163,7 @@
                                                     element: $("#magenta")[0],
                                                     animation: {
                                                         name: "flip",
-                                                        duration: "3s"
+                                                        duration: "1s"
                                                     },
                                                     callback: function() {
                                                         //
@@ -182,81 +186,121 @@
 
             function entranceAndExitTest() {
                 //This assumes that all test elements are in the hidden state to begin with
-
+                var entranceAnimationName = "fadeIn";
+                var exitAnimationName = "fadeOut";
+                
                 v.fire({
                     element: $("#red")[0],
                     animation: {
-                        name: "bounceIn",
+                        name: entranceAnimationName,
                         duration: "1s",
-                        type: "entrance"
+                        type: "entrance",
+                        afterDelay: 1000
                     },
                     callback: function(){
-                        //
+
+                        v.fire({
+                            element: $("#red")[0],
+                            animation: {
+                                name: exitAnimationName,
+                                duration: "1s",
+                                type: "exit"
+                            }
+                        });
+
                     }
                 });
 
                 v.fire({
                     element: $("#blue")[0],
                     animation: {
-                        name: "bounceIn",
-                        duration: "1.5s",
-                        type: "entrance"
+                        name: entranceAnimationName,
+                        duration: "1s",
+                        type: "entrance",
+                        afterDelay: 1000
                     },
                     callback: function(){
-                        //
+
+                        v.fire({
+                            element: $("#blue")[0],
+                            animation: {
+                                name: exitAnimationName,
+                                duration: "1s",
+                                type: "exit"
+                            }
+                        });
+
                     }
                 });
 
                 v.fire({
                     element: $("#green")[0],
                     animation: {
-                        name: "bounceIn",
-                        duration: "2s",
-                        type: "entrance"
+                        name: entranceAnimationName,
+                        duration: "1s",
+                        type: "entrance",
+                        afterDelay: 1000
                     },
                     callback: function(){
-                        //
-                    }
-                });
 
-                v.fire({
-                    element: $("#green")[0],
-                    animation: {
-                        name: "bounceIn",
-                        duration: "2.5s",
-                        type: "entrance"
-                    },
-                    callback: function(){
-                        //
+                        v.fire({
+                            element: $("#green")[0],
+                            animation: {
+                                name: exitAnimationName,
+                                duration: "1s",
+                                type: "exit"
+                            }
+                        });
+
                     }
                 });
 
                 v.fire({
                     element: $("#yellow")[0],
                     animation: {
-                        name: "bounceIn",
-                        duration: "3s",
-                        type: "entrance"
+                        name: entranceAnimationName,
+                        duration: "1s",
+                        type: "entrance",
+                        afterDelay: 1000
                     },
                     callback: function(){
-                        //
+
+                        v.fire({
+                            element: $("#yellow")[0],
+                            animation: {
+                                name: exitAnimationName,
+                                duration: "1s",
+                                type: "exit"
+                            }
+                        });
+
                     }
                 });
 
                 v.fire({
                     element: $("#magenta")[0],
                     animation: {
-                        name: "bounceIn",
-                        duration: "3.5s",
-                        type: "entrance"
+                        name: entranceAnimationName,
+                        duration: "1s",
+                        type: "entrance",
+                        afterDelay: 1000
                     },
                     callback: function(){
-                        //
+
+                        v.fire({
+                            element: $("#magenta")[0],
+                            animation: {
+                                name: exitAnimationName,
+                                duration: "1s",
+                                type: "exit"
+                            }
+                        });
+
                     }
                 });
 
             }
-            
+
             function burstAllAtOnceTest() {
                 v.burst({
                     elements: $(".box"),
@@ -267,7 +311,7 @@
                     }
                 });
             }
-            
+
             function burstOneAtATimeTest() {
                 v.burst({
                     elements: $(".box"),

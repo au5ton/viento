@@ -13,7 +13,7 @@ You can find the Viento JavaScript framework in [viento.js](https://github.com/a
 Download viento.js or viento.css and use how you'd like.
 
 ##Dependencies
-Viento.js requires jQuery 1.0 and above.
+Viento.js requires jQuery 1.0 and above because of its selectors and element manipulation functionality. You probably already use this library anyway.
 
 ##Usage
 I'm not here to tell you how to use `viento.css`, so I will explain how to use `viento.js`.

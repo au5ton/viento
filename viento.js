@@ -138,9 +138,9 @@ Viento.prototype.fire = function(t) {
 }
 
 Viento.prototype.burst = function(b) {
-    
+
     var errors = false;
-    
+
     if(b === undefined){
         return;
     }
@@ -176,20 +176,25 @@ Viento.prototype.burst = function(b) {
             });
         }
     }
-    /*else if(b.method === "oneAtATime") {
-        
+    if(b.method === "oneAtATime") {
         //TODO: figure out how to run asynchronous functions "one at a time" 
-        
-        for(var i = 0; i < b.elements.length; i++) {
+        var i = 0;
+        function recursive(inc) {
             Viento.prototype.fire({
-                element: b.elements[i],
+                element: b.elements[inc],
                 animation: b.animation,
                 callback: function(){
-                    //
+
+                    if(i < b.elements.length-1) {
+                        i++;
+                        recursive(i);
+                    }
+
                 }
             });
-        }
 
-    }*/
+        }
+        recursive(i);
+    }
 
 }

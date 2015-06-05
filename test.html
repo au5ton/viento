@@ -84,6 +84,8 @@
         <div>
             <button onclick="sequentialAnimationsTest();">sequentialAnimationsTest</button>
             <button onclick="entranceAndExitTest();">entranceAndExitTest</button>
+            <button onclick="burstAllAtOnceTest();">burstAllAtOnceTest</button>
+            <button onclick="burstOneAtATimeTest();">burstOneAtATimeTest</button>
         </div>
 
         <div id="red" class="box">
@@ -124,7 +126,7 @@
                 v.fire({
                     element: $("#red")[0],
                     animation: {
-                        name: "v-spinAround",
+                        name: "flip",
                         duration: "1s"
                     },
                     callback: function() {
@@ -132,7 +134,7 @@
                         v.fire({
                             element: $("#blue")[0],
                             animation: {
-                                name: "v-spinAround",
+                                name: "flip",
                                 duration: "1.5s"
                             },
                             callback: function() {
@@ -140,7 +142,7 @@
                                 v.fire({
                                     element: $("#green")[0],
                                     animation: {
-                                        name: "v-spinAround",
+                                        name: "flip",
                                         duration: "2s"
                                     },
                                     callback: function() {
@@ -148,7 +150,7 @@
                                         v.fire({
                                             element: $("#yellow")[0],
                                             animation: {
-                                                name: "v-spinAround",
+                                                name: "flip",
                                                 duration: "2.5s"
                                             },
                                             callback: function() {
@@ -156,11 +158,11 @@
                                                 v.fire({
                                                     element: $("#magenta")[0],
                                                     animation: {
-                                                        name: "v-spinAround",
+                                                        name: "flip",
                                                         duration: "3s"
                                                     },
                                                     callback: function() {
-
+                                                        //
                                                     }
                                                 });
 
@@ -178,13 +180,13 @@
                 });
             }
 
-            function entranceAndExitTest(){
+            function entranceAndExitTest() {
                 //This assumes that all test elements are in the hidden state to begin with
 
                 v.fire({
                     element: $("#red")[0],
                     animation: {
-                        name: "v-fadeIn",
+                        name: "bounceIn",
                         duration: "1s",
                         type: "entrance"
                     },
@@ -196,7 +198,7 @@
                 v.fire({
                     element: $("#blue")[0],
                     animation: {
-                        name: "v-fadeIn",
+                        name: "bounceIn",
                         duration: "1.5s",
                         type: "entrance"
                     },
@@ -208,7 +210,7 @@
                 v.fire({
                     element: $("#green")[0],
                     animation: {
-                        name: "v-fadeIn",
+                        name: "bounceIn",
                         duration: "2s",
                         type: "entrance"
                     },
@@ -220,7 +222,7 @@
                 v.fire({
                     element: $("#green")[0],
                     animation: {
-                        name: "v-fadeIn",
+                        name: "bounceIn",
                         duration: "2.5s",
                         type: "entrance"
                     },
@@ -232,7 +234,7 @@
                 v.fire({
                     element: $("#yellow")[0],
                     animation: {
-                        name: "v-fadeIn",
+                        name: "bounceIn",
                         duration: "3s",
                         type: "entrance"
                     },
@@ -244,7 +246,7 @@
                 v.fire({
                     element: $("#magenta")[0],
                     animation: {
-                        name: "v-fadeIn",
+                        name: "bounceIn",
                         duration: "3.5s",
                         type: "entrance"
                     },
@@ -254,11 +256,32 @@
                 });
 
             }
+            
+            function burstAllAtOnceTest() {
+                v.burst({
+                    elements: $(".box"),
+                    method: "allAtOnce",
+                    animation: {
+                        name: "flip",
+                        duration: "1s"
+                    }
+                });
+            }
+            
+            function burstOneAtATimeTest() {
+                v.burst({
+                    elements: $(".box"),
+                    method: "oneAtATime",
+                    animation: {
+                        name: "flip",
+                        duration: "1s"
+                    }
+                });
+            }
 
             $(document).ready(function(){
 
                 $(".box").on("click",function(){
-                    console.log(this);
                     v.fire({
                         element: this,
                         animation: {
@@ -268,11 +291,10 @@
                     });
                 });
                 $(".box").on("tap",function(){
-                    console.log(this);
                     v.fire({
                         element: this,
                         animation: {
-                            name: "v-spinAround",
+                            name: "rubberBand",
                             duration: "2s"
                         }
                     });

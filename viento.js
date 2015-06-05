@@ -1,8 +1,12 @@
 //Viento CSS animation library by Austin Jackson
 
+//'use strict';
+
 function Viento() {
     //
 }
+
+
 
 Viento.prototype.callInteration = 0;
 Viento.prototype.t = undefined;
@@ -10,45 +14,100 @@ Viento.prototype.t = undefined;
 Viento.prototype.fire = function(t) {
     console.log("call iteration: "+Viento.prototype.callInteration);
     Viento.prototype.callInteration++;
-
     Viento.prototype.t = t;
+    var error = false;
 
     //If these are undefined, set a default value to stop errors
-    if(t.animation.beforeDelay === undefined) {
-        t.animation.beforeDelay = 0;
+    if(t === undefined) {
+        console.error("You didn't define anything!");
+        error = true;
     }
-    if(t.animation.afterDelay === undefined) {
-        t.animation.afterDelay = 0;
+    else {
+        if(t.element === undefined) {
+            console.error("You didn't define an element.");
+            error = true;
+        }
+        else {
+            var elem = $(t.element);
+        }
+        if(t.animation === undefined) {
+            console.error("You didn't define an animation.");
+            error = true;
+        }
+        else {
+            if(t.animation.beforeDelay === undefined) {
+                t.animation.beforeDelay = 0;
+            }
+            if(t.animation.afterDelay === undefined) {
+                t.animation.afterDelay = 0;
+            }
+            if(t.animation.resetAfter === undefined) {
+                t.animation.resetAfter = true;
+            }
+        }
+        if(t.callback === undefined) {
+            t.callback = function() {};
+        }
+        if(t.withAnimation === undefined){
+            t.withAnimation = function() {};
+        }
     }
-    if(t.animation.resetAfter === undefined) {
-        t.animation.resetAfter = true;
-    }
-
-    if(t.callback === undefined) {
-        t.callback = function() {};
-    }
-    if(t.withAnimation === undefined){
-        t.withAnimation = function() {};
+    if(error === true) {
+        return;
     }
 
     //If this is an entrance animation, wait for the animation to start to reveal the element
     if(t.animation.type === "entrance") {
-        if(t.element.getAttribute("data-v-hasAnimationStartListener") === "true"){
-            console.log("Element with id "+t.element.getAttribute("id")+" already has an animationStart listener.");
-        }
-        else {
-            t.element.setAttribute("data-v-hasAnimationStartListener","true");
-            var onAnimationStart = function(event){
-                event.target.style.visibility = "visible";
-            };
-            t.element.addEventListener("animationstart",onAnimationStart);
-            t.element.addEventListener("webkitAnimationStart",onAnimationStart);
-            t.element.addEventListener("oanimationstart",onAnimationStart);
-            t.element.addEventListener("MSAnimationStart",onAnimationStart);
-        }
+        elem.on("animationstart webkitAnimationStart oanimationstart MSAnimationStart",function(){
+            event.target.style.visibility = "visible";
+        });
     }
+    elem.on("animationend webkitAnimationEnd oanimationend MSAnimationEnd",function(){
 
-    function f1() {
+        setTimeout(function(){
+            //If this is an exit animation, hide the element
+            if(t.animation.type === "exit") {
+                t.element.style.visibility = "hidden";
+            }
+            //If resetAfter is enabled, reset the CSS animation properties and involved classes
+            if(t.animation.resetAfter === true){
+                //If this element has an entrance animation, remove the "hidden" class from it and reset the visibility to default
+                if(t.animation.type === "entrance") {
+                    $(t.element).removeClass("hidden");
+                    t.element.style.visibility= "";
+                }
+
+                //Standard
+                t.element.style.animationName = "";
+                t.element.style.animationDuration = "";
+                t.element.style.animationDelay = "";
+                t.element.style.animationDirection = "";
+                t.element.style.animationFillMode = "";
+                t.element.style.animationIterationCount = "";
+                t.element.style.animationPlayState = "";
+                t.element.style.animationTimingFunctions = "";
+                t.element.style.animation = "";
+                //-webkit-
+                t.element.style.webkitAnimationName = "";
+                t.element.style.webkitAnimationDuration = "";
+                t.element.style.webkitAnimationDelay = "";
+                t.element.style.webkitAnimationDirection = "";
+                t.element.style.webkitAnimationFillMode = "";
+                t.element.style.webkitAnimationIterationCount = "";
+                t.element.style.webkitAnimationPlayState = "";
+                t.element.style.webkitAnimationTimingFunctions = "";
+            }
+            //Everything is done, run the callback function
+            elem.off("animationstart webkitAnimationStart oanimationstart MSAnimationStart");
+            elem.off("animationend webkitAnimationEnd oanimationend MSAnimationEnd");
+            t.callback();
+        },t.animation.afterDelay);
+
+
+    });
+
+    setTimeout(function(){
+
         //Set the given animation properties, thus running the CSS animation
         //t.withAnimation();
         //Standard
@@ -72,76 +131,9 @@ Viento.prototype.fire = function(t) {
         //Style.animation will overwrite everything before it, so we only want to set it if it has data. This is to keep us from setting everything to undefined or default values.
         if(t.animation.animation !== undefined) {
             t.element.style.animation = t.animation.animation;
+            t.element.style.webkitAnimation = t.animation.animation;
         }
-
-        //Wait for the animation to end
-        if(t.element.getAttribute("data-v-hasAnimationEndListener") === "true"){
-            console.log("Element with id "+t.element.getAttribute("id")+" already has an animationEnd listener.");
-        }
-        else {
-            t.element.setAttribute("data-v-hasAnimationEndListener","true");
-            var onAnimationEnd = function(event){
-                //Timeout function for an optional afterDelay time
-
-                function f2(){
-                    //If this is an exit animation, hide the element
-                    if(t.animation.type === "exit") {
-                        t.element.style.visibility = "hidden";
-                    }
-                    //If resetAfter is enabled, reset the CSS animation properties and involved classes
-                    if(t.animation.resetAfter === true){
-                        //If this element has an entrance animation, remove the "hidden" class from it and reset the visibility to default
-                        if(t.animation.type === "entrance") {
-                            $(t.element).removeClass("hidden");
-                            t.element.style.visibility= "";
-                        }
-
-                        //Standard
-                        event.target.style.animationName = "";
-                        event.target.style.animationDuration = "";
-                        event.target.style.animationDelay = "";
-                        event.target.style.animationDirection = "";
-                        event.target.style.animationFillMode = "";
-                        event.target.style.animationIterationCount = "";
-                        event.target.style.animationPlayState = "";
-                        event.target.style.animationTimingFunctions = "";
-                        event.target.style.animation = "";
-                        //-webkit-
-                        event.target.style.webkitAnimationName = "";
-                        event.target.style.webkitAnimationDuration = "";
-                        event.target.style.webkitAnimationDelay = "";
-                        event.target.style.webkitAnimationDirection = "";
-                        event.target.style.webkitAnimationFillMode = "";
-                        event.target.style.webkitAnimationIterationCount = "";
-                        event.target.style.webkitAnimationPlayState = "";
-                        event.target.style.webkitAnimationTimingFunctions = "";
-                    }
-                    //Everything is done, run the callback function
-                    t.callback();
-                }
-                if(t.animation.afterDelay <= 0) {
-                    f2();
-                }
-                else {
-                    setTimeout(f2,t.animation.afterDelay);
-                }
-            };
-            t.element.addEventListener("animationend",onAnimationEnd);
-            t.element.addEventListener("webkitAnimationEnd",onAnimationEnd);
-            t.element.addEventListener("oanimationend",onAnimationEnd);
-            t.element.addEventListener("MSAnimationEnd",onAnimationEnd);
-        }
-    }
-
-
-    if(t.animation.beforeDelay <= 0) {
-        f1();
-    }
-    else {
-        //Timeout function for an optional beforeDelay time
-        setTimeout(f1,t.animation.beforeDelay);
-    }
-
+    },t.animation.beforeDelay);
 }
 
 Viento.prototype.burst = function(b) {
@@ -194,6 +186,19 @@ Viento.prototype.burst = function(b) {
                 animation: b.animation
             });
         }
+    }
+    else if(b.method === "oneAtATime") {
+        window.cond = undefined;
+        for(var i = 0; i < b.elements.length; i++) {
+            Viento.prototype.fire({
+                element: b.elements[i],
+                animation: b.animation,
+                callback: function(){
+                    //
+                }
+            });
+        }
+
     }
 
 }

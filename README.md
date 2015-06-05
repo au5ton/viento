@@ -134,6 +134,7 @@ v.fire({
   animation: {
     beforeDelay: 1000, //Optional, milliseconds delay before the animation begins
     afterDelay: 2000, //Optional, milliseconds delay after the animation ends
+    type: "entrance", //Optional, used for animating entrances and exits of elements. Uses the "hidden" CSS class. Possible parameters: "entrance" or "exit".
     name: "bar", //Required, CSS bind to the animation-name property.
     duration: "1s", //Required, CSS bind to the animation-duration property.
     delay: "2s", //Optional, CSS bind to the animation-delay property.
@@ -142,7 +143,7 @@ v.fire({
     iterationCount: "0", //Optional, CSS bind to the animation-iteration-count property.
     playState: "running", //Optional, CSS bind to the animation-play-state property.
     timingFunctions: "ease" //Optional, CSS bind to the animation-timing-functions property.
-    animation: "" //Optional, CSS bind to the animation property. If specified, it will overwrite the others.
+    animation: "" //Optional, CSS bind to the animation property. If specified, it will overwrite the others
   },
   withAnimation: function(){
     //Optional, code run right before initiating the animation

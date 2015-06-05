@@ -42,6 +42,9 @@ Viento.prototype.fire = function(t) {
                 event.target.style.visibility = "visible";
             };
             t.element.addEventListener("animationstart",onAnimationStart);
+            t.element.addEventListener("webkitAnimationStart",onAnimationStart);
+            t.element.addEventListener("oanimationstart",onAnimationStart);
+            t.element.addEventListener("MSAnimationStart",onAnimationStart);
         }
     }
 
@@ -124,6 +127,9 @@ Viento.prototype.fire = function(t) {
                 }
             };
             t.element.addEventListener("animationend",onAnimationEnd);
+            t.element.addEventListener("webkitAnimationEnd",onAnimationEnd);
+            t.element.addEventListener("oanimationend",onAnimationEnd);
+            t.element.addEventListener("MSAnimationEnd",onAnimationEnd);
         }
     }
 

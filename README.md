@@ -9,6 +9,9 @@ This repo serves two purposes: provide some basic high-performance CSS animation
 You can find the CSS animations in [viento.css](https://github.com/au5ton/viento/blob/gh-pages/viento.css).
 You can find the Viento JavaScript framework in [viento.js](https://github.com/au5ton/viento/blob/gh-pages/viento.js).
 
+##Be forewarned
+**This is very much a prototype and *will* have bugs here and there. Most notably, [issue #3](https://github.com/au5ton/viento/issues/3).**
+
 ##Installation
 Download viento.js or viento.css and use how you'd like.
 

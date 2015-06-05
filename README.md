@@ -153,3 +153,30 @@ v.fire({
 });
 
 ```
+
+###Viento.burst()
+
+Viento can only run animations on one element at a time, but selecting multiple elements in libraries such as jQuery returns an array. Passing an array in to Viento.fire() will fail, as it's expecting only a single element. That is why the example code above has a `[0]` after the jQuery selector.
+
+Using Viento.burst(), you can easily run the same animation on multiple elements.
+
+```html
+<div id="red" class="box"></div>
+<div id="yellow" class="box"></div>
+<div id="purple" class="box"></div>
+
+<script>
+
+v.burst({
+  elements: $(".box"),
+  method: "allAtOnce", //Currently the only supported method. Chooses this by default.
+  animation: { //Verbatim animation object from Viento.fire()
+    name: "spinAround",
+    duration: "1s"
+  }
+});
+
+//#red, #yellow, and #purple all run the spinAround animation, simultaneously
+
+</script>
+```

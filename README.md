@@ -1,27 +1,30 @@
 viento
 ======
 
-Fire and manage custom high-performance CSS animations on-the-fly.
+Fire and manage CSS animations on-the-fly. Tested to be compatible with [Animate.css](https://daneden.github.io/animate.css/).
 
 ##Purpose
-This repo serves two purposes: provide some basic high-performance CSS animations, free for you to use any way you like, and a neat way to manage their properties, control flow, and timing.
-
-You can find the CSS animations in [viento.css](https://github.com/au5ton/viento/blob/gh-pages/viento.css).
-You can find the Viento JavaScript framework in [viento.js](https://github.com/au5ton/viento/blob/gh-pages/viento.js).
+Viento provides a neat way to manage CSS animations and their properties, control flow, and timing.
 
 ##Be forewarned
 **This is very much a prototype and *will* have bugs here and there. Most notably, [issue #3](https://github.com/au5ton/viento/issues/3).**
 
 ##Installation
-Download viento.js or viento.css and use how you'd like.
+Download viento.js (uncompressed) and put it whereever you'd like.
+
+```javascript
+//Import Viento
+var v = new Viento();
+
+//Make calls like this
+v.fire();
+```
 
 ##Dependencies
-Viento.js requires jQuery 1.0 and above because of its selectors and element manipulation functionality. You probably already use this library anyway.
+Viento.js requires jQuery 1.0 and above because of its selectors, element manipulation, and event handling functionality. You probably already use this library anyway.
 
 ##Usage
-I'm not here to tell you how to use `viento.css`, so I will explain how to use `viento.js`.
-
-Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/viento.js). Let's go over some basic usage. **These examples currently don't contain existing animations (spinAround and flipOver aren't actual animations).**
+Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works internally, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/viento.js). Let's go over some basic usage. **These examples contain animations from the [Animate.css](https://daneden.github.io/animate.css/) animation library.**
 
 ###Basic usage
 
@@ -37,7 +40,7 @@ v.fire({
   element: $("#box")[0], //Provide A SINGLE element object, you could also use document.getElementById(). 
   animation: {
     //Supply any CSS animation related property
-    name: "spinAround", //`animation-name: spinAround;` equivalent
+    name: "rubberBand", //`animation-name: rubberBand;` equivalent
     duration: "1s" //`animation-duration: 1s;` equivalent
   }
 });
@@ -63,7 +66,7 @@ var v = new Viento();
 v.fire({
   element: $("#box")[0],
   animation: {
-    name: "spinAround",
+    name: "rubberBand",
     duration: "1s"
   },
   callback: function f(){
@@ -71,7 +74,7 @@ v.fire({
     v.fire({
       element: $("#circle")[0],
       animation: {
-        name: "flipOver",
+        name: "rubberBand",
         duration: "2s"
       }
     });
@@ -99,7 +102,7 @@ var v = new Viento();
 v.fire({
   element: $("#box")[0],
   animation: {
-    name: "spinAround",
+    name: "rubberBand",
     duration: "1s"
   }
 });
@@ -107,14 +110,14 @@ v.fire({
 v.fire({
   element: $("#circle")[0],
   animation: {
-    name: "spinAround",
+    name: "rubberBand",
     duration: "1s"
   },
   callback: function(){
     v.fire({
       element: $("#triangle")[0],
       animation: {
-        name: "flipOver",
+        name: "rubberBand",
         duration: "1s"
       }
     });
@@ -138,7 +141,7 @@ v.fire({
     beforeDelay: 1000, //Optional, milliseconds delay before the animation begins
     afterDelay: 2000, //Optional, milliseconds delay after the animation ends
     type: "entrance", //Optional, used for animating entrances and exits of elements. Uses the "hidden" CSS class. Possible parameters: "entrance" or "exit".
-    name: "bar", //Required, CSS bind to the animation-name property.
+    name: "rubberBand", //Required, CSS bind to the animation-name property.
     duration: "1s", //Required, CSS bind to the animation-duration property.
     delay: "2s", //Optional, CSS bind to the animation-delay property.
     direction: "alternate", //Optional, CSS bind to the animation-direction property.
@@ -175,7 +178,7 @@ v.burst({
   elements: $(".box"),
   method: "allAtOnce", //Currently the only supported method. Chooses this by default.
   animation: { //Verbatim animation object from Viento.fire()
-    name: "spinAround",
+    name: "rubberBand",
     duration: "1s"
   }
 });

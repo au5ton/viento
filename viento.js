@@ -116,7 +116,6 @@ Viento.prototype.fire = function(t) {
     setTimeout(function(){
 
         //Set the given animation properties, thus running the CSS animation
-        //t.withAnimation();
         //Standard
         t.element.style.animationName = t.animation.name;
         t.element.style.animationDuration = t.animation.duration;
@@ -224,7 +223,7 @@ Viento.prototype.sortElementsFromTopToBottom = function(a,b) {
     else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) { //If b is higher up vertically than a
         return 1;
     }
-    else if(a.getBoundingClientRect().top === b.getBoundingClientRect().top){
+    else {
         if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) { //If a is closer to the left horizontally than b
             return -1;
         }
@@ -232,34 +231,27 @@ Viento.prototype.sortElementsFromTopToBottom = function(a,b) {
             return 1;
         }
         else {
-            return -1;
+            return 0;
         }
-    }
-    else {
-        return -1;
     }
 }
 
 Viento.prototype.sortElementsFromBottomToTop = function(a,b) {
-    if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
+    if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) {
         return 1;
     }
-    else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) { //If b is higher up vertically than a
+    else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) {
         return -1;
     }
-    else if(a.getBoundingClientRect().top === b.getBoundingClientRect().top){
-        if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) { //If a is closer to the left horizontally than b
+    else {
+        if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) {
             return -1;
         }
-        else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) { //If b is closer to the left horizontally than b
+        else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) {
             return 1;
         }
         else {
-            return -1;
+            return 0;
         }
     }
-    else {
-        return -1;
-    }
 }
-

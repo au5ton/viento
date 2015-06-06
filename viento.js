@@ -12,6 +12,12 @@ Viento.prototype.callInteration = 0;
 Viento.prototype.t = undefined;
 Viento.prototype.isReady = false;
 
+//Thanks: http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
+Viento.prototype.isFunction = function(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
 Viento.prototype.fire = function(t) {
     console.log("call iteration: "+Viento.prototype.callInteration);
     Viento.prototype.callInteration++;
@@ -149,9 +155,12 @@ Viento.prototype.burst = function(b) {
             console.error("No elements were specified.");
             errors = true;
         }
-        if(b.method === undefined) {
+        if(b.mode === undefined) {
             console.log("You didn't define a method to use. Doing all at once by default.");
-            b.method = "allAtOnce";
+            b.mode = "allAtOnce";
+        }
+        if(b.sortingMethod === undefined) {
+            //This is ok, just use jQuery's default sorting
         }
         if(b.animation ===  undefined) {
             console.error("No animation was specified.");
@@ -167,7 +176,7 @@ Viento.prototype.burst = function(b) {
         }
     }
 
-    if(b.method === "allAtOnce") {
+    if(b.mode === "allAtOnce") {
         for(var i = 0; i < b.elements.length; i++) {
             //console.log(b.elements[i]);
             Viento.prototype.fire({
@@ -176,20 +185,28 @@ Viento.prototype.burst = function(b) {
             });
         }
     }
-    if(b.method === "oneAtATime") {
-        //TODO: figure out how to run asynchronous functions "one at a time" 
+    if(b.mode === "oneAtATime") {
+
+        if(b.sortingMethod === "topToBottom") {
+            b.elements = b.elements.sort(Viento.prototype.sortElementsFromTopToBottom);
+        }
+        else if(b.sortingMethod === "bottomToTop") {
+            b.elements = b.elements.sort(Viento.prototype.sortElementsFromBottomToTop);
+        }
+        else if(Viento.prototype.isFunction(b.sortingMethod) === true) {
+            b.elements = b.elements.sort(b.sortingMethod);
+        }
+
         var i = 0;
         function recursive(inc) {
             Viento.prototype.fire({
                 element: b.elements[inc],
                 animation: b.animation,
                 callback: function(){
-
                     if(i < b.elements.length-1) {
                         i++;
                         recursive(i);
                     }
-
                 }
             });
 
@@ -198,3 +215,51 @@ Viento.prototype.burst = function(b) {
     }
 
 }
+
+//Comparing function compatible with Array.prototype.sort()
+Viento.prototype.sortElementsFromTopToBottom = function(a,b) {
+    if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
+        return -1;
+    }
+    else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) { //If b is higher up vertically than a
+        return 1;
+    }
+    else if(a.getBoundingClientRect().top === b.getBoundingClientRect().top){
+        if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) { //If a is closer to the left horizontally than b
+            return -1;
+        }
+        else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) { //If b is closer to the left horizontally than b
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
+    else {
+        return -1;
+    }
+}
+
+Viento.prototype.sortElementsFromBottomToTop = function(a,b) {
+    if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
+        return 1;
+    }
+    else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) { //If b is higher up vertically than a
+        return -1;
+    }
+    else if(a.getBoundingClientRect().top === b.getBoundingClientRect().top){
+        if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) { //If a is closer to the left horizontally than b
+            return -1;
+        }
+        else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) { //If b is closer to the left horizontally than b
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
+    else {
+        return -1;
+    }
+}
+

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>TITLE</title>
+        <title>Viento: Fire and manage CSS animations on-the-fly</title>
 
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href="css/materialize.min.css" rel="stylesheet">
@@ -42,13 +42,13 @@
                             Fire and manage CSS animations on-the-fly. Tested to be compatible with <a class="white-text" href="https://daneden.github.io/animate.css/">Animate.css</a>.
                         </p>
                         <p class="grey-text text-lighten-4">
-                            This every element above is animated and cleaned up by Viento in just <span class="bold">10 lines of code</span>.
+                            Every element above is animated and cleaned up by Viento in just <span class="bold">10 lines of code</span>.
                         </p>
                         <p class="grey-text text-lighten-4">
-                            <a href="" class="waves-effect waves-light btn blue darken-4">WANT TO SEE HOW?</a>
+                            <a href="https://github.com/au5ton/viento/blob/gh-pages/index.html#LC90" class="waves-effect waves-light btn blue darken-4">WANT TO SEE HOW?</a>
                         </p>
                         <p class="grey-text text-lighten-4">
-                            Sandy cover photo by <a class="white-text" href="https://www.flickr.com/photos/nickpomes/16667670478/">Nick Pomes</a>
+                            <a class="white-text" href="https://www.flickr.com/photos/nickpomes/16667670478/"></a>Sandy cover photo by <a class="white-text" href="http://www.nickpomes.com/">Nick Pomes</a>
                         </p>
                     </div>
                     <div class="col l4 offset-l2 s12">
@@ -87,6 +87,7 @@
                             $(elem).addClass("hidden");
                         });
                         setTimeout(function(){
+                            //THIS IS WHERE VIENTO DOES ITS MAGIC
                             v.burst({
                                 elements: $("#content").children(),
                                 mode: "oneAtATime",
@@ -97,7 +98,7 @@
                                     type: "entrance"
                                 }
                             });
-                        },500);
+                        },250);
 
                     },
                     error: function(jqXHR,textStatus,errorThrown){

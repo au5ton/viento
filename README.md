@@ -21,7 +21,7 @@ v.fire();
 ```
 
 ##Dependencies
-Viento.js requires jQuery 1.0 and above because of its selectors, element manipulation, and event handling functionality. You probably already use this library anyway.
+Viento.js requires jQuery because of its selectors, element manipulation, and event handling functionality. You probably already use this library anyway.
 
 This library also requires that you have a `hidden` CSS class somewhere in your loaded CSS.
 
@@ -34,7 +34,9 @@ This library also requires that you have a `hidden` CSS class somewhere in your 
 ##Usage
 Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works internally, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/viento.js). Let's go over some basic usage. **These examples contain animations from the [Animate.css](https://daneden.github.io/animate.css/) animation library.**
 
-###Basic usage
+###Viento.fire()
+
+####Basic usage
 
 ```html
 <div id="box"></div>
@@ -47,7 +49,7 @@ v.fire({
   element: $("#box")[0], //Provide A SINGLE element object, you could also use document.getElementById(). 
   animation: {
     //Supply any CSS animation related property
-    name: "rubberBand", //`animation-name: rubberBand;` equivalent
+    name: "rubberBand", //`animation-name: rubberBand;` equivalent, provide what has @keyframe in front of it
     duration: "1s" //`animation-duration: 1s;` equivalent
   }
 });
@@ -58,7 +60,7 @@ v.fire({
 In the previous example, we import viento and use the global `fire()` function. The #box element will now run the given animation, and even clean up after itself (not shown in the example).
 
 
-###Using the callback function
+####Using the callback function
 
 ```html
 <div id="box"></div>
@@ -75,7 +77,7 @@ v.fire({
     name: "rubberBand",
     duration: "1s"
   },
-  callback: function f(){
+  callback: function() {
     //Once the #box has finished spinning, flip over the #circle
     v.fire({
       element: $("#circle")[0],
@@ -90,10 +92,10 @@ v.fire({
 </script>
 ```
 
-In the previous example, we spin the #box around for 1 second, and upon completion of that animation, flip over the #circle.
+In the previous example, we apply the rubberBand animation to #box for 1 second, and upon completion of that animation, apply the rubberBand animation to the #circle for 2 seconds.
 
 
-###Running animations simultaneously 
+####Running animations simultaneously 
 
 ```html
 <div id="box"></div>
@@ -117,24 +119,15 @@ v.fire({
   animation: {
     name: "rubberBand",
     duration: "1s"
-  },
-  callback: function(){
-    v.fire({
-      element: $("#triangle")[0],
-      animation: {
-        name: "rubberBand",
-        duration: "1s"
-      }
-    });
   }
 });
 
 </script>
 ```
 
-In the above example, #box and #circle both run the same animations for the same duration at the same time. In addition, once #circle has finised animating, #triangle will be animated.
+In the above example, #box and #circle both run the same animations for the same duration at the same time. _Viento.fire() is an **asynchronous** function._
 
-###All other options
+####All other options
 
 ```javascript
 
@@ -156,9 +149,6 @@ v.fire({
     timingFunctions: "ease" //Optional, CSS bind to the animation-timing-functions property.
     animation: "" //Optional, CSS bind to the animation property. If specified, it will overwrite the others
   },
-  withAnimation: function(){
-    //Optional, code run right before initiating the animation
-  },
   callback: function(){
     //Optional, code run immediately following the completion of the animation
   }
@@ -168,7 +158,9 @@ v.fire({
 
 ###Viento.burst()
 
-Viento can only run animations on one element at a time, but selecting multiple elements in libraries such as jQuery returns an array. Passing an array in to Viento.fire() will fail, as it's expecting only a single element. That is why the example code above has a `[0]` after the jQuery selector.
+Viento.fire() can only run animations on one element at a time, but selecting multiple elements, in libraries such as jQuery, returns an array. Passing an array into Viento.fire() will fail, as it's expecting only a single element. That is why the example code above has a `[0]` after the jQuery selector.
+
+> v.fire({ element: **$("#foo")[0]**, animation: { ... }});
 
 Using Viento.burst(), you can easily run the same animation on multiple elements.
 
@@ -180,9 +172,10 @@ Using Viento.burst(), you can easily run the same animation on multiple elements
 <script>
 
 v.burst({
-  elements: $(".box"),
-  method: "allAtOnce", //Currently the only supported method. Chooses this by default.
-  animation: { //Verbatim animation object from Viento.fire()
+  elements: $(".box"), //Required, specifies an array of elements that you want to act upon
+  mode: "allAtOnce", //Optional, specifies if you want to fire the animations on the elements "allAtOnce" or "oneAtATime"
+  sortingMethod: "topToBottom", //Optional, specifies which elements should be animated first. Pass an Array.sort() compatible function and use the objects as elements, or use some built-in ones with "topToBottom" or "bottomToTop"
+  animation: { //Verbatim animation object from Viento.fire(), see above for details and arguments
     name: "rubberBand",
     duration: "1s"
   }

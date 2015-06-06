@@ -5,13 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>TITLE</title>
 
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href="css/materialize.min.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/viento.css" rel="stylesheet">
+        <link href="css/styles/github.css" rel="stylesheet">
 
         <script src="js/jquery.min.js"></script>
         <script src="js/materialize.min.js"></script>
-
+        <script src="js/marked.min.js"></script>
+        <script src="js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
 
@@ -23,13 +27,60 @@
 
         </div>
 
-        <div class="container">
+        <div id="content" class="container markdown-content">
+            <!-- THIS IS REPLACED WITH COMPILED MARKDOWN -->
+            <!-- THIS IS REPLACED WITH COMPILED MARKDOWN -->
+            <!-- THIS IS REPLACED WITH COMPILED MARKDOWN -->
+        </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo eget eros eget venenatis. Sed eu ante eleifend, faucibus risus et, condimentum purus. Maecenas in sem dui. Cras odio quam, blandit nec dui a, sollicitudin pharetra neque. Cras sodales vulputate massa sed congue. Curabitur vitae venenatis dui. Aliquam imperdiet lorem eu velit lobortis volutpat. Sed sollicitudin dolor eget condimentum congue. Curabitur tincidunt molestie dictum. Sed sit amet purus nec velit semper luctus. Morbi condimentum sagittis odio, id semper nisi imperdiet quis. Sed sodales velit in neque egestas, sed luctus ipsum bibendum. Donec luctus ac elit vitae efficitur.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo eget eros eget venenatis. Sed eu ante eleifend, faucibus risus et, condimentum purus. Maecenas in sem dui. Cras odio quam, blandit nec dui a, sollicitudin pharetra neque. Cras sodales vulputate massa sed congue. Curabitur vitae venenatis dui. Aliquam imperdiet lorem eu velit lobortis volutpat. Sed sollicitudin dolor eget condimentum congue. Curabitur tincidunt molestie dictum. Sed sit amet purus nec velit semper luctus. Morbi condimentum sagittis odio, id semper nisi imperdiet quis. Sed sodales velit in neque egestas, sed luctus ipsum bibendum. Donec luctus ac elit vitae efficitur.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo eget eros eget venenatis. Sed eu ante eleifend, faucibus risus et, condimentum purus. Maecenas in sem dui. Cras odio quam, blandit nec dui a, sollicitudin pharetra neque. Cras sodales vulputate massa sed congue. Curabitur vitae venenatis dui. Aliquam imperdiet lorem eu velit lobortis volutpat. Sed sollicitudin dolor eget condimentum congue. Curabitur tincidunt molestie dictum. Sed sit amet purus nec velit semper luctus. Morbi condimentum sagittis odio, id semper nisi imperdiet quis. Sed sodales velit in neque egestas, sed luctus ipsum bibendum. Donec luctus ac elit vitae efficitur.</p>
-
+        <footer class="page-footer blue z-depth-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Viento</h5>
+                        <p class="grey-text text-lighten-4">Fire and manage CSS animations on-the-fly. Tested to be compatible with <a class="white-text" href="https://daneden.github.io/animate.css/">Animate.css</a>.</p>
+                        <p class="grey-text text-lighten-4">Sandy cover photo by <a class="white-text" href="https://www.flickr.com/photos/nickpomes/16667670478/">Nick Pomes</a></p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a href="https://github.com/au5ton/viento" class="waves-effect waves-light btn blue darken-4">Github</a></li>
+                            <li><a href="http://twitter.com/au5ton" class="waves-effect waves-light btn blue darken-4">Twitter</a></li>
+                            <li><a href="mailto:au5ton@icloud.com" class="waves-effect waves-light btn blue darken-4">Email</a></li>
+                            <li><a href="http://austinj.net/" class="waves-effect waves-light btn blue darken-4">Austinj.net</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <div class="footer-copyright">
+                <div class="container white-text">
+                    &copy; 2015 Austin Jackson
+                </div>
+            </div>
+        </footer>
+
+        <script>
+
+            $(document).ready(function(){
+                $.ajax({
+                    url: "http://cdn.rawgit.com/au5ton/viento/master/README.md",
+                    success: function(result){
+                        console.log("Ajax successfully retrieved README.md.");
+                        $("#content").html(marked(result.substring(result.indexOf("[//]: # (WEB_CONTENT_START)"))));
+                        $('pre code').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        });
+                    },
+                    error: function(jqXHR,textStatus,errorThrown){
+                        $("#content").html("Ajax failed to retrieve <a href=\"https://github.com/au5ton/viento/blob/master/README.md\">README.md</a>.<br>");
+                    }
+                });
+
+            });
+
+
+
+        </script>
 
     </body>
 </html>

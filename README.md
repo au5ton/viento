@@ -38,8 +38,7 @@ Viento.js provides a unique wrap to let you fire CSS animations. To learn how vi
 
 ```html
 <div id="box"></div>
-...
-<script src="js/viento.js"></script>
+
 <script>
 //Import viento.js
 var v = new Viento();
@@ -64,8 +63,7 @@ In the previous example, we import viento and use the global `fire()` function. 
 ```html
 <div id="box"></div>
 <div id="circle"></div>
-...
-<script src="js/viento.js"></script>
+
 <script>
 //Import viento.js
 var v = new Viento();
@@ -101,8 +99,7 @@ In the previous example, we spin the #box around for 1 second, and upon completi
 <div id="box"></div>
 <div id="circle"></div>
 <div id="triangle"></div>
-...
-<script src="js/viento.js"></script>
+
 <script>
 //Import viento.js
 var v = new Viento();

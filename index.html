@@ -42,7 +42,7 @@
                             Fire and manage CSS animations on-the-fly. Tested to be compatible with <a class="white-text" href="https://daneden.github.io/animate.css/">Animate.css</a>.
                         </p>
                         <p class="grey-text text-lighten-4">
-                            Every element above is animated and cleaned up by Viento in just <span class="bold">10 lines of code</span>.
+                            Every element above is animated and cleaned up by Viento in just <span class="bold">18 lines of specific, easy to understand code</span>.
                         </p>
                         <p class="grey-text text-lighten-4">
                             <a href="https://github.com/au5ton/viento/blob/gh-pages/index.html#LC90" class="waves-effect waves-light btn blue darken-4">WANT TO SEE HOW?</a>
@@ -75,7 +75,7 @@
 
             $(document).ready(function(){
                 $.ajax({
-                    url: "http://cdn.rawgit.com/au5ton/viento/master/README.md",
+                    url: "README.md",
                     success: function(result){
                         console.log("Ajax successfully retrieved README.md.");
                         $("#content").html(marked(result.substring(result.indexOf("[//]: # (WEB_CONTENT_START)"))));
@@ -91,31 +91,37 @@
                             v.fire({
                                 element: $("#herotext")[0],
                                 animation: {
-                                    name: "bounceInUp",
+                                    name: "slideInDown",
                                     duration: "1s",
-                                    type: "entrance",
-                                    callback: function() {
-                                        console.log("Done");
+                                    type: "entrance"
+                                },
+                                callback: function() {
+                                    v.burst({
+                                        elements: $("#content").children(),
+                                        mode: "oneAtATime",
+                                        sortingMethod: "topToBottom",
+                                        animation: {
+                                            name: "zoomIn",
+                                            duration: "0.15s",
+                                            type: "entrance"
+                                        }
+                                    });
 
-                                        v.burst({
-                                            elements: $("#content").children(),
-                                            mode: "oneAtATime",
-                                            sortingMethod: "topToBottom",
-                                            animation: {
-                                                name: "zoomIn",
-                                                duration: "0.15s",
-                                                type: "entrance"
-                                            }
-                                        });
-
-                                    }
                                 }
                             })
                         },250);
 
                     },
                     error: function(jqXHR,textStatus,errorThrown){
-                        $("#content").html("Ajax failed to retrieve <a href=\"https://github.com/au5ton/viento/blob/master/README.md\">README.md</a>.<br>");
+                        $("#content").html("Ajax failed to retrieve <a href=\"https://github.com/au5ton/viento/blob/gh-pages/README.md\">README.md</a>.<br>");
+                        v.fire({
+                            element: $("#herotext")[0],
+                            animation: {
+                                name: "slideInDown",
+                                duration: "1s",
+                                type: "entrance"
+                            }
+                        });
                     }
                 });
 

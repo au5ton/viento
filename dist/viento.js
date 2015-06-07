@@ -177,7 +177,6 @@ Viento.prototype.burst = function(b) {
 
     if(b.mode === "allAtOnce") {
         for(var i = 0; i < b.elements.length; i++) {
-            //console.log(b.elements[i]);
             Viento.prototype.fire({
                 element: b.elements[i],
                 animation: b.animation

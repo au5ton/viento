@@ -41,6 +41,7 @@ body {
   font-weight: 700;
 }
 .markdown-content {
+  min-height: 300px;
   margin-bottom: 25px;
 }
 .markdown-content h1,

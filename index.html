@@ -21,7 +21,7 @@
 
         <div class="hero">
 
-            <div class="wrap">
+            <div id="herotext" class="wrap hidden">
                 <h1>Viento</h1>
             </div>
 
@@ -88,16 +88,29 @@
                         });
                         setTimeout(function(){
                             //THIS IS WHERE VIENTO DOES ITS MAGIC
-                            v.burst({
-                                elements: $("#content").children(),
-                                mode: "oneAtATime",
-                                sortingMethod: "topToBottom",
+                            v.fire({
+                                element: $("#herotext")[0],
                                 animation: {
-                                    name: "zoomIn",
-                                    duration: "0.15s",
-                                    type: "entrance"
+                                    name: "bounceInUp",
+                                    duration: "1s",
+                                    type: "entrance",
+                                    callback: function() {
+                                        console.log("Done");
+
+                                        v.burst({
+                                            elements: $("#content").children(),
+                                            mode: "oneAtATime",
+                                            sortingMethod: "topToBottom",
+                                            animation: {
+                                                name: "zoomIn",
+                                                duration: "0.15s",
+                                                type: "entrance"
+                                            }
+                                        });
+
+                                    }
                                 }
-                            });
+                            })
                         },250);
 
                     },

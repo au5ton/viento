@@ -3,6 +3,8 @@ viento
 
 Fire and manage CSS animations on-the-fly. Tested to be compatible with [Animate.css](https://daneden.github.io/animate.css/).
 
+[//]: # (WEB_CONTENT_START)
+
 ##Purpose
 Viento provides a neat way to manage CSS animations and their properties, control flow, and timing. Also, "viento" means "wind" in Spanish, because this library makes CSS animations *a breeze*.
 
@@ -78,7 +80,7 @@ v.fire({
     duration: "1s"
   },
   callback: function() {
-    //Once the #box has finished spinning, flip over the #circle
+    //Once the #box has finished animating, animate the #circle
     v.fire({
       element: $("#circle")[0],
       animation: {

@@ -42,10 +42,10 @@
                             Fire and manage CSS animations on-the-fly. Tested to be compatible with <a class="white-text" href="https://daneden.github.io/animate.css/">Animate.css</a>.
                         </p>
                         <p class="grey-text text-lighten-4">
-                            Every element above is animated and cleaned up by Viento in just <span class="bold">18 lines of specific, easy to understand code</span>.
+                            Every element above is animated and cleaned up by Viento in just <span class="bold">a couple lines of specific, easy to understand code</span>.
                         </p>
                         <p class="grey-text text-lighten-4">
-                            <a href="https://github.com/au5ton/viento/blob/gh-pages/index.html#LC90" class="waves-effect waves-light btn blue darken-4">WANT TO SEE HOW?</a>
+                            <a href="https://github.com/au5ton/viento/blob/gh-pages/index.html#LC76" class="waves-effect waves-light btn blue darken-4">WANT TO SEE HOW?</a>
                         </p>
                         <p class="grey-text text-lighten-4">
                             <a class="white-text" href="https://www.flickr.com/photos/nickpomes/16667670478/">Sandy cover photo</a> by <a class="white-text" href="http://www.nickpomes.com/">Nick Pomes</a>
@@ -83,9 +83,19 @@
                             hljs.highlightBlock(block);
                         });
                         var children = $("#content").children();
+                        var elementsToSlideLeft = [];
+                        var elementsToSlideRight = [];
                         $.each(children,function(i, elem){
                             $(elem).addClass("hidden");
+                            if(i%2 === 0) {
+                                elementsToSlideLeft.push(elem);
+                            }
+                            else {
+                                elementsToSlideRight.push(elem);
+                            }
                         });
+                        elementsToSlideLeft = elementsToSlideLeft.sort(Viento.prototype.sortElementsFromTopToBottom);
+                        elementsToSlideRight = elementsToSlideRight.sort(Viento.prototype.sortElementsFromTopToBottom);
                         setTimeout(function(){
                             //THIS IS WHERE VIENTO DOES ITS MAGIC
                             v.fire({
@@ -97,11 +107,21 @@
                                 },
                                 callback: function() {
                                     v.burst({
-                                        elements: $("#content").children(),
+                                        elements: elementsToSlideLeft,
                                         mode: "oneAtATime",
                                         sortingMethod: "topToBottom",
                                         animation: {
-                                            name: "zoomIn",
+                                            name: "slideInLeft",
+                                            duration: "0.15s",
+                                            type: "entrance"
+                                        }
+                                    });
+                                    v.burst({
+                                        elements: elementsToSlideRight,
+                                        mode: "oneAtATime",
+                                        sortingMethod: "topToBottom",
+                                        animation: {
+                                            name: "slideInRight",
                                             duration: "0.15s",
                                             type: "entrance"
                                         }

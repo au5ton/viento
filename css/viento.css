@@ -14,18 +14,12 @@ body {
   width: 100%;
   height: 50vh;
   max-height: 600px;
-  background-image: url("../img/nickpomes.png");
+  background-image: linear-gradient(#0d47a1, #2196f3, #ffffff);
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover!important;
   margin-left: auto;
   margin-right: auto;
-}
-@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx) {
-  .hero {
-    background-image: url("../img/nickpomes@2x.png");
-    background-size: auto auto;
-  }
 }
 .hero .wrap-outer {
   width: 100%;

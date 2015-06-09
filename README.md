@@ -34,7 +34,7 @@ This library also requires that you have a `hidden` CSS class somewhere in your 
 ```
 
 ##Usage
-Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works internally, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/viento.js). Let's go over some basic usage. **These examples contain animations from the [Animate.css](https://daneden.github.io/animate.css/) animation library.**
+Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works internally, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/dist/viento.js). Let's go over some basic usage. **These examples contain animations from the [Animate.css](https://daneden.github.io/animate.css/) animation library.**
 
 ###Viento.fire()
 

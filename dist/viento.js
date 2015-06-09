@@ -1,16 +1,22 @@
-//Viento CSS animation library by Austin Jackson
+/*
 
-//'use strict';
+Viento CSS animation library by Austin Jackson
+http://austinj.net/viento
+
+Please star me on github, I would super duper love it
+https://github.com/au5ton/viento
+
+
+*/
 
 function Viento() {
-    //
+    //Viento constructor
+    //Empty because Viento should be used statically
 }
 
 
-
+//Number of times the fire() function has been called
 Viento.prototype.callInteration = 0;
-Viento.prototype.t = undefined;
-Viento.prototype.isReady = false;
 
 //Thanks: http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
 Viento.prototype.isFunction = function(functionToCheck) {
@@ -21,7 +27,6 @@ Viento.prototype.isFunction = function(functionToCheck) {
 Viento.prototype.fire = function(t) {
     console.log("call iteration: "+Viento.prototype.callInteration);
     Viento.prototype.callInteration++;
-    Viento.prototype.t = t;
     var error = false;
 
     //If these are undefined, set a default value to stop errors
@@ -60,7 +65,7 @@ Viento.prototype.fire = function(t) {
         }
     }
     if(error === true) {
-        return;
+        return; //If there is an error, stop the execution immediately 
     }
 
     //If this is an entrance animation, wait for the animation to start to reveal the element
@@ -69,14 +74,16 @@ Viento.prototype.fire = function(t) {
             event.target.style.visibility = "visible";
         });
     }
+    //When the animation ends... (this code isn't run immediately, the interpreter skips to what is after it
     elem.on("animationend webkitAnimationEnd oanimationend MSAnimationEnd",function(){
 
+        //Uses setTimeout so we can use "afterDelay"
         setTimeout(function(){
             //If this is an exit animation, hide the element
             if(t.animation.type === "exit") {
                 t.element.style.visibility = "hidden";
             }
-            //If resetAfter is enabled, reset the CSS animation properties and involved classes
+            //If resetAfter is enabled (it is by default), reset the CSS animation properties and involved classes
             if(t.animation.resetAfter === true){
                 //If this element has an entrance animation, remove the "hidden" class from it and reset the visibility to default
                 if(t.animation.type === "entrance") {
@@ -113,9 +120,11 @@ Viento.prototype.fire = function(t) {
 
     });
 
+    //After the listeners are set for the end of the animation, let's start the animation
+    //Uses setTimeout so we can use "beforeDelay"
     setTimeout(function(){
 
-        //Set the given animation properties, thus running the CSS animation
+        //Set the given animation properties, thus running the CSS animation (the actual code that starts the animation)
         //Standard
         t.element.style.animationName = t.animation.name;
         t.element.style.animationDuration = t.animation.duration;
@@ -142,10 +151,12 @@ Viento.prototype.fire = function(t) {
     },t.animation.beforeDelay);
 }
 
+//Viento.burst() let's you fire animations on a group of elements in one function call
 Viento.prototype.burst = function(b) {
 
     var errors = false;
 
+    //If these are undefined, set a default value to stop errors
     if(b === undefined){
         return;
     }
@@ -171,10 +182,13 @@ Viento.prototype.burst = function(b) {
             }
         }
         if(errors === true) {
-            //return;
+            return;
         }
     }
 
+    //If we're animating them all at once, we can use a simple array to loop through all the elements because Viento.fire() is asynchronous
+    //Thus, they run "allAtOnce"
+    //Easy peasy
     if(b.mode === "allAtOnce") {
         for(var i = 0; i < b.elements.length; i++) {
             Viento.prototype.fire({
@@ -183,8 +197,12 @@ Viento.prototype.burst = function(b) {
             });
         }
     }
+    //If we're animating them one at a time, this is a little tricky. More on that in a sec.
     if(b.mode === "oneAtATime") {
 
+        //b.elements is an Array, allowing access to the native JS function Array.sort()
+        //Viento.prototype.sortXYZ are functions that get the properties of the elements and determine the order of the elements so when burst()...
+        //...if fired, the elements animate from topToBottom, or in other ways. Developers can write their own, as well.
         if(b.sortingMethod === "topToBottom") {
             b.elements = b.elements.sort(Viento.prototype.sortElementsFromTopToBottom);
         }
@@ -194,22 +212,65 @@ Viento.prototype.burst = function(b) {
         else if(Viento.prototype.isFunction(b.sortingMethod) === true) {
             b.elements = b.elements.sort(b.sortingMethod);
         }
+        
+        /*
+        Here's the tricky part. I actually opened up an issue for this on Github and reached out to friends for support.
+        I hope you learn something, because I sure did:
+        https://github.com/au5ton/viento/issues/6
+        
+        
+        Now, what I wanted to do was use the callback function in Viento.fire() to tell it to go to the next loop.
+        I tried something like this:
+        
+        ```
+            var ready = false;
+            for(var i = 0; i < b.elements.length; i++) {
+                ready = false;
+                while(ready === false) {
+                    Viento.prototype.fire({
+                        element: b.elements[i],
+                        animation: b.animation,
+                        callback: function() {
+                            ready = true;
+                        }
+                    });
+                }
+            }
+        ```    
+            
+        Now, unfortunately for me, this didn't work. Due to JavaScript's nature of asynchronous actions and scoping, ...
+        ...this resulted in an infinite loop and froze every tab I tried modifications of it on.
+        
+        Thankfully, @tarunbod knew exactly what to do. Instead of using the index variable i from the loop, he made `i`
+        a higher-up variable accessible from the function, and made it recursive! That way, the function can call itself, 
+        and continute to iterate through the array.
+        */
 
+        //Index starts at 0
         var i = 0;
+        //Recursive function
         function recursive(inc) {
+            //Runs the animation for the given index (at first, 0)
             Viento.prototype.fire({
                 element: b.elements[inc],
                 animation: b.animation,
                 callback: function(){
+                    //Once the animation has finished,
+                    //If we should continue, increment `i` and call itself again
                     if(i < b.elements.length-1) {
                         i++;
                         recursive(i);
                     }
+                    //If we don't "call itself again", then the endless loop ends, and goes to where it says ENDS UP HERE.
                 }
             });
 
         }
+        //Calls the function for the first time
         recursive(i);
+        //ENDS UP HERE
+        
+        //Your burst is finished
     }
 
 }
@@ -217,40 +278,40 @@ Viento.prototype.burst = function(b) {
 //Comparing function compatible with Array.prototype.sort()
 Viento.prototype.sortElementsFromTopToBottom = function(a,b) {
     if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
-        return -1;
+        return -1; //Return a
     }
     else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) { //If b is higher up vertically than a
-        return 1;
+        return 1; //Return b
     }
     else {
         if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) { //If a is closer to the left horizontally than b
-            return -1;
+            return -1; //Return a
         }
         else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) { //If b is closer to the left horizontally than b
-            return 1;
+            return 1; //Return b
         }
         else {
-            return 0;
+            return 0; //Return equal, or no preference
         }
     }
 }
 
 Viento.prototype.sortElementsFromBottomToTop = function(a,b) {
-    if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) {
-        return 1;
+    if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
+        return 1; //Return b
     }
-    else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) {
-        return -1;
+    else if(a.getBoundingClientRect().top > b.getBoundingClientRect().top) { //If b is higher up vertically than a
+        return -1; //Return a
     }
     else {
-        if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) {
-            return -1;
+        if(a.getBoundingClientRect().left < b.getBoundingClientRect().left) { //If a is closer to the left horizontally than b
+            return -1; //Return a
         }
-        else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) {
-            return 1;
+        else if(a.getBoundingClientRect().left > b.getBoundingClientRect().left) { //If b is closer to the left horizontally than b
+            return 1; //Return b
         }
         else {
-            return 0;
+            return 0; //Return equal, or no preference
         }
     }
 }

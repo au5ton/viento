@@ -83,19 +83,9 @@
                             hljs.highlightBlock(block);
                         });
                         var children = $("#content").children();
-                        var elementsToSlideLeft = [];
-                        var elementsToSlideRight = [];
                         $.each(children,function(i, elem){
                             $(elem).addClass("hidden");
-                            if(i%2 === 0) {
-                                elementsToSlideLeft.push(elem);
-                            }
-                            else {
-                                elementsToSlideRight.push(elem);
-                            }
                         });
-                        elementsToSlideLeft = elementsToSlideLeft.sort(Viento.prototype.sortElementsFromTopToBottom);
-                        elementsToSlideRight = elementsToSlideRight.sort(Viento.prototype.sortElementsFromTopToBottom);
                         setTimeout(function(){
                             //THIS IS WHERE VIENTO DOES ITS MAGIC
                             v.fire({
@@ -116,22 +106,12 @@
                                 },
                                 callback: function() {
                                     v.burst({
-                                        elements: elementsToSlideLeft,
+                                        elements: $("#content").children(),
                                         mode: "oneAtATime",
                                         sortingMethod: "topToBottom",
                                         animation: {
-                                            name: "slideInLeft",
-                                            duration: "0.15s",
-                                            type: "entrance"
-                                        }
-                                    });
-                                    v.burst({
-                                        elements: elementsToSlideRight,
-                                        mode: "oneAtATime",
-                                        sortingMethod: "topToBottom",
-                                        animation: {
-                                            name: "slideInRight",
-                                            duration: "0.15s",
+                                            name: "zoomIn",
+                                            duration: "0.175s",
                                             type: "entrance"
                                         }
                                     });

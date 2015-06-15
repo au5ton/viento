@@ -249,7 +249,7 @@ Viento.prototype.burst = function(b) {
         //Index starts at 0
         var i = 0;
         //Recursive function
-        function recursive() {
+        function recursive(inc) {
             //Runs the animation for the given index (at first, 0)
             Viento.prototype.fire({
                 element: b.elements[inc],
@@ -259,7 +259,7 @@ Viento.prototype.burst = function(b) {
                     //If we should continue, increment `i` and call itself again
                     if(i < b.elements.length-1) {
                         i++;
-                        recursive();
+                        recursive(i);
                     }
                     //If we don't "call itself again", then the endless loop ends, and goes to where it says ENDS UP HERE.
                 }
@@ -267,7 +267,7 @@ Viento.prototype.burst = function(b) {
 
         }
         //Calls the function for the first time
-        recursive();
+        recursive(i);
         //ENDS UP HERE
         
         //Your burst is finished

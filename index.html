@@ -19,7 +19,7 @@
     </head>
     <body>
 
-        <div class="hero">
+        <div class="hero hidden">
 
             <div id="herotext" class="wrap-outer hidden">
                 <div class="wrap-inner">
@@ -99,11 +99,20 @@
                         setTimeout(function(){
                             //THIS IS WHERE VIENTO DOES ITS MAGIC
                             v.fire({
+                                element: $(".hero")[0],
+                                animation: {
+                                    name: "fadeIn",
+                                    duration: "1.25s",
+                                    type: "entrance"
+                                }
+                            });
+                            v.fire({
                                 element: $("#herotext")[0],
                                 animation: {
                                     name: "slideInDown",
                                     duration: "1s",
-                                    type: "entrance"
+                                    type: "entrance",
+                                    beforeDelay: 250
                                 },
                                 callback: function() {
                                     v.burst({

@@ -1,15 +1,11 @@
 {
     "name": "viento",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Fire and manage CSS animations on-the-fly",
-    "author": "Austin Jackson <au5ton@icloud.com>",
+    "author": "Austin Jackson <austinjckson@gmail.com>",
     "repository": {
         "type": "git",
         "url": "https://github.com/au5ton/viento"
-    },
-    "dependencies": {
-        "primus": "*",
-        "serve-static": "*"
     },
     "license": "MIT"
 }

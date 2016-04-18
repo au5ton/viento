@@ -15,7 +15,7 @@
         <script src="js/materialize.min.js"></script>
         <script src="js/marked.min.js"></script>
         <script src="js/highlight.pack.js"></script>
-        <script src="dist/viento.js"></script>
+        <script src="https://cdn.rawgit.com/au5ton/viento/master/viento.js"></script>
     </head>
     <body>
 
@@ -75,7 +75,7 @@
 
             $(document).ready(function(){
                 $.ajax({
-                    url: "README.md",
+                    url: "https://cdn.rawgit.com/au5ton/viento/master/README.md",
                     success: function(result){
                         console.log("Ajax successfully retrieved README.md.");
                         $("#content").html(marked(result.substring(result.indexOf("[//]: # (WEB_CONTENT_START)"))));
@@ -122,7 +122,7 @@
 
                     },
                     error: function(jqXHR,textStatus,errorThrown){
-                        $("#content").html("Ajax failed to retrieve <a href=\"https://github.com/au5ton/viento/blob/gh-pages/README.md\">README.md</a>.<br>");
+                        $("#content").html("Ajax failed to retrieve <a href=\"https://cdn.rawgit.com/au5ton/viento/master/README.md\">README.md</a>.<br>");
                         v.fire({
                             element: $("#herotext")[0],
                             animation: {

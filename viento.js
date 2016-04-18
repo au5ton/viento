@@ -1,32 +1,24 @@
 /*
 
-Viento CSS animation library by Austin Jackson
+Viento CSS animation library
 http://austinj.net/viento
-
-Please star me on github, I would super duper love it
-https://github.com/au5ton/viento
-
 
 */
 
-function Viento() {
-    //Viento constructor
-    //Empty because Viento should be used statically
-}
-
+window.Viento = {};
 
 //Number of times the fire() function has been called
-Viento.prototype.callInteration = 0;
+window.Viento.callInteration = 0;
 
 //Thanks: http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
-Viento.prototype.isFunction = function(functionToCheck) {
+window.Viento.isFunction = function(functionToCheck) {
     var getType = {};
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 }
 
-Viento.prototype.fire = function(t) {
-    console.log("call iteration: "+Viento.prototype.callInteration);
-    Viento.prototype.callInteration++;
+window.Viento.fire = function(t) {
+    console.log("call iteration: "+window.Viento.callInteration);
+    window.Viento.callInteration++;
     var error = false;
 
     //If these are undefined, set a default value to stop errors
@@ -65,7 +57,7 @@ Viento.prototype.fire = function(t) {
         }
     }
     if(error === true) {
-        return; //If there is an error, stop the execution immediately 
+        return; //If there is an error, stop the execution immediately
     }
 
     //If this is an entrance animation, wait for the animation to start to reveal the element
@@ -152,7 +144,7 @@ Viento.prototype.fire = function(t) {
 }
 
 //Viento.burst() let's you fire animations on a group of elements in one function call
-Viento.prototype.burst = function(b) {
+window.Viento.burst = function(b) {
 
     var errors = false;
 
@@ -191,7 +183,7 @@ Viento.prototype.burst = function(b) {
     //Easy peasy
     if(b.mode === "allAtOnce") {
         for(var i = 0; i < b.elements.length; i++) {
-            Viento.prototype.fire({
+            window.Viento.fire({
                 element: b.elements[i],
                 animation: b.animation
             });
@@ -201,33 +193,33 @@ Viento.prototype.burst = function(b) {
     if(b.mode === "oneAtATime") {
 
         //b.elements is an Array, allowing access to the native JS function Array.sort()
-        //Viento.prototype.sortXYZ are functions that get the properties of the elements and determine the order of the elements so when burst()...
+        //window.Viento.sortXYZ are functions that get the properties of the elements and determine the order of the elements so when burst()...
         //...if fired, the elements animate from topToBottom, or in other ways. Developers can write their own, as well.
         if(b.sortingMethod === "topToBottom") {
-            b.elements = b.elements.sort(Viento.prototype.sortElementsFromTopToBottom);
+            b.elements = b.elements.sort(window.Viento.sortElementsFromTopToBottom);
         }
         else if(b.sortingMethod === "bottomToTop") {
-            b.elements = b.elements.sort(Viento.prototype.sortElementsFromBottomToTop);
+            b.elements = b.elements.sort(window.Viento.sortElementsFromBottomToTop);
         }
-        else if(Viento.prototype.isFunction(b.sortingMethod) === true) {
+        else if(window.Viento.isFunction(b.sortingMethod) === true) {
             b.elements = b.elements.sort(b.sortingMethod);
         }
-        
+
         /*
         Here's the tricky part. I actually opened up an issue for this on Github and reached out to friends for support.
         I hope you learn something, because I sure did:
         https://github.com/au5ton/viento/issues/6
-        
-        
+
+
         Now, what I wanted to do was use the callback function in Viento.fire() to tell it to go to the next loop.
         I tried something like this:
-        
+
         ```
             var ready = false;
             for(var i = 0; i < b.elements.length; i++) {
                 ready = false;
                 while(ready === false) {
-                    Viento.prototype.fire({
+                    window.Viento.fire({
                         element: b.elements[i],
                         animation: b.animation,
                         callback: function() {
@@ -236,13 +228,13 @@ Viento.prototype.burst = function(b) {
                     });
                 }
             }
-        ```    
-            
+        ```
+
         Now, unfortunately for me, this didn't work. Due to JavaScript's nature of asynchronous actions and scoping, ...
         ...this resulted in an infinite loop and froze every tab I tried modifications of it on.
-        
+
         Thankfully, @tarunbod knew exactly what to do. Instead of using the index variable i from the loop, he made `i`
-        a higher-up variable accessible from the function, and made it recursive! That way, the function can call itself, 
+        a higher-up variable accessible from the function, and made it recursive! That way, the function can call itself,
         and continute to iterate through the array.
         */
 
@@ -251,7 +243,7 @@ Viento.prototype.burst = function(b) {
         //Recursive function
         function recursive(inc) {
             //Runs the animation for the given index (at first, 0)
-            Viento.prototype.fire({
+            window.Viento.fire({
                 element: b.elements[inc],
                 animation: b.animation,
                 callback: function(){
@@ -269,14 +261,14 @@ Viento.prototype.burst = function(b) {
         //Calls the function for the first time
         recursive(i);
         //ENDS UP HERE
-        
+
         //Your burst is finished
     }
 
 }
 
 //Comparing function compatible with Array.prototype.sort()
-Viento.prototype.sortElementsFromTopToBottom = function(a,b) {
+window.Viento.sortElementsFromTopToBottom = function(a,b) {
     if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
         return -1; //Return a
     }
@@ -296,7 +288,7 @@ Viento.prototype.sortElementsFromTopToBottom = function(a,b) {
     }
 }
 
-Viento.prototype.sortElementsFromBottomToTop = function(a,b) {
+window.Viento.sortElementsFromBottomToTop = function(a,b) {
     if(a.getBoundingClientRect().top < b.getBoundingClientRect().top) { //If a is higher up vertically than b
         return 1; //Return b
     }

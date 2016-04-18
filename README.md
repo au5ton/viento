@@ -20,7 +20,7 @@ v.fire();
 ```
 
 ##Dependencies
-Viento.js requires jQuery because of its selectors, element manipulation, and event handling functionality. You probably already use this library anyway.
+Viento.js requires jQuery because of its selectors, element manipulation, and event handling functionality (specifically [.off() and .on()](http://api.jquery.com/off/)). You probably already use this library anyway.
 
 This library also requires that you have a `hidden` CSS class somewhere in your loaded CSS, in order to `entrance` or `exit` animations properly.
 
@@ -45,7 +45,7 @@ Viento.js provides a unique wrap to let you fire CSS animations. To learn how vi
 var v = new Viento();
 
 v.fire({
-  element: $("#box")[0], //Provide A SINGLE element object, you could also use document.getElementById(). 
+  element: $("#box")[0], //Provide A SINGLE element object, you could also use document.getElementById().
   animation: {
     //Supply any CSS animation related property
     name: "rubberBand", //`animation-name: rubberBand;` equivalent, provide what has @keyframe in front of it
@@ -94,7 +94,7 @@ v.fire({
 In the previous example, we apply the rubberBand animation to #box for 1 second, and upon completion of that animation, apply the rubberBand animation to the #circle for 2 seconds.
 
 
-####Running animations simultaneously 
+####Running animations simultaneously
 
 ```html
 <div id="box"></div>

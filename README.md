@@ -9,14 +9,17 @@ Fire and manage CSS animations on-the-fly. Tested to be compatible with [Animate
 Viento provides a neat way to manage CSS animations and their properties, control flow, and timing. Also, "viento" means "wind" in Spanish, because this library makes CSS animations *a breeze*.
 
 ##Installation
-Download viento.js (currently uncompressed) and put it whereever you'd like.
+
+With npm: `npm install --save au5ton/viento`
+
+Without npm: Download viento.js and put it whereever you'd like.
+
+Note: viento.js is uncompressed
 
 ```javascript
-//Import Viento
-var v = new Viento();
-
 //Make calls like this
-v.fire();
+Viento.fire();
+
 ```
 
 ##Dependencies
@@ -41,10 +44,8 @@ Viento.js provides a unique wrap to let you fire CSS animations. To learn how vi
 <div id="box"></div>
 
 <script>
-//Import viento.js
-var v = new Viento();
 
-v.fire({
+Viento.fire({
   element: $("#box")[0], //Provide A SINGLE element object, you could also use document.getElementById().
   animation: {
     //Supply any CSS animation related property
@@ -66,11 +67,8 @@ In the previous example, we import viento and use the global `fire()` function. 
 <div id="circle"></div>
 
 <script>
-//Import viento.js
-var v = new Viento();
 
-//Spin the #box around for 1 second
-v.fire({
+Viento.fire({
   element: $("#box")[0],
   animation: {
     name: "rubberBand",
@@ -78,7 +76,7 @@ v.fire({
   },
   callback: function() {
     //Once the #box has finished animating, animate the #circle
-    v.fire({
+    Viento.fire({
       element: $("#circle")[0],
       animation: {
         name: "rubberBand",
@@ -102,10 +100,8 @@ In the previous example, we apply the rubberBand animation to #box for 1 second,
 <div id="triangle"></div>
 
 <script>
-//Import viento.js
-var v = new Viento();
 
-v.fire({
+Viento.fire({
   element: $("#box")[0],
   animation: {
     name: "rubberBand",
@@ -113,7 +109,7 @@ v.fire({
   }
 });
 
-v.fire({
+Viento.fire({
   element: $("#circle")[0],
   animation: {
     name: "rubberBand",
@@ -130,9 +126,7 @@ In the above example, #box and #circle both run the same animations for the same
 
 ```javascript
 
-var v = new Viento();
-
-v.fire({
+Viento.fire({
   element: $("#foo")[0], //Required, the single element you will be animating.
   animation: {
     beforeDelay: 1000, //Optional, milliseconds delay before the animation begins
@@ -170,7 +164,7 @@ Using Viento.burst(), you can easily run the same animation on multiple elements
 
 <script>
 
-v.burst({
+Viento.burst({
   elements: $(".box"), //Required, specifies an array of elements that you want to act upon
   mode: "allAtOnce", //Optional, specifies if you want to fire the animations on the elements "allAtOnce" or "oneAtATime"
   sortingMethod: "topToBottom", //Optional, specifies which elements should be animated first. Pass an Array.sort() compatible function and use the objects as elements, or use some built-in ones with "topToBottom" or "bottomToTop"

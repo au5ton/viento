@@ -11,7 +11,9 @@ Viento provides a neat way to manage CSS animations and their properties, contro
 ##Installation
 
 With npm: `npm install --save au5ton/viento`
+
 Without npm: Download viento.js and put it whereever you'd like.
+
 Note: viento.js is uncompressed
 
 ```javascript

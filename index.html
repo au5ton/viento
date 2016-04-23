@@ -15,7 +15,7 @@
         <script src="js/materialize.min.js"></script>
         <script src="js/marked.min.js"></script>
         <script src="js/highlight.pack.js"></script>
-        <script src="https://cdn.rawgit.com/au5ton/viento/40d9fc8243db2fbf92abdb0f941c76a76231bb27/viento.js"></script>
+        <script src="https://cdn.rawgit.com/au5ton/viento/master/viento.js"></script>
     </head>
     <body>
 
@@ -73,7 +73,7 @@
 
             $(document).ready(function(){
                 $.ajax({
-                    url: "https://cdn.rawgit.com/au5ton/viento/40d9fc8243db2fbf92abdb0f941c76a76231bb27/README.md",
+                    url: "https://cdn.rawgit.com/au5ton/viento/master/README.md",
                     success: function(result){
                         console.log("Ajax successfully retrieved README.md.");
                         $("#content").html(marked(result.substring(result.indexOf("[//]: # (WEB_CONTENT_START)"))));

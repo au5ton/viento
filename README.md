@@ -5,10 +5,10 @@ Fire and manage CSS animations on-the-fly. Tested to be compatible with [Animate
 
 [//]: # (WEB_CONTENT_START)
 
-##Purpose
+## Purpose
 Viento provides a neat way to manage CSS animations and their properties, control flow, and timing. Also, "viento" means "wind" in Spanish, because this library makes CSS animations *a breeze*.
 
-##Installation
+## Installation
 
 With npm: `npm install viento --save`
 
@@ -22,7 +22,7 @@ Viento.fire();
 
 ```
 
-##Dependencies
+## Dependencies
 Viento.js requires jQuery because of its selectors, element manipulation, and event handling functionality (specifically [.off() and .on()](http://api.jquery.com/off/)). You probably already use this library anyway.
 
 This library also requires that you have a `hidden` CSS class somewhere in your loaded CSS, in order to `entrance` or `exit` animations properly.
@@ -33,12 +33,12 @@ This library also requires that you have a `hidden` CSS class somewhere in your 
 }
 ```
 
-##Usage
+## Usage
 Viento.js provides a unique wrap to let you fire CSS animations. To learn how viento.js works internally, I try to keep it pretty well commented [over here](https://github.com/au5ton/viento/blob/gh-pages/dist/viento.js). Let's go over some basic usage. These examples contain animations from the [Animate.css](https://daneden.github.io/animate.css/) animation library.
 
-###Viento.fire()
+### Viento.fire()
 
-####Basic usage
+#### Basic usage
 
 ```html
 <div id="box"></div>
@@ -60,7 +60,7 @@ Viento.fire({
 In the previous example, we import viento and use the global `fire()` function. The #box element will now run the given animation, and even clean up after itself (not shown in the example).
 
 
-####Using the callback function
+#### Using the callback function
 
 ```html
 <div id="box"></div>
@@ -92,7 +92,7 @@ Viento.fire({
 In the previous example, we apply the rubberBand animation to #box for 1 second, and upon completion of that animation, apply the rubberBand animation to the #circle for 2 seconds.
 
 
-####Running animations simultaneously
+#### Running animations simultaneously
 
 ```html
 <div id="box"></div>
@@ -122,7 +122,7 @@ Viento.fire({
 
 In the above example, #box and #circle both run the same animations for the same duration at the same time. _Viento.fire() is an **asynchronous** function._
 
-####All other options
+#### All other options
 
 ```javascript
 
@@ -149,7 +149,7 @@ Viento.fire({
 
 ```
 
-###Viento.burst()
+### Viento.burst()
 
 Viento.fire() can only run animations on one element at a time, but selecting multiple elements, in libraries such as jQuery, returns an array. Passing an array into Viento.fire() will fail, as it's expecting only a single element. That is why the example code above has a `[0]` after the jQuery selector.
 
